@@ -5,7 +5,8 @@ window.BUDGET=[
  ['Triplay de pino 5 mm, 122×244','3 hojas',233,'Fondo 13–14 y tapas de puerta 28–29 · cotización Triplay Market',1],
  ['Cortes en Triplay Market','lote',52,'Pendiente de confirmar',0],
  ['Pino seco 19×63 (1×3), 2.44 m','10 tablas',75,'Bastidores, listón y junquillos',0],
- ['Kit carros Ducloset doble 45 kg (Ducasse)','1 kit',389,'Home Depot',1],
+ ['Kit carros Ducloset doble 45 kg (Ducasse)','1 kit',389,'Home Depot · 4 carros, tope y guía al piso; NO incluye riel',1],
+ ['Riel U-20 acero galvanizado 2 m (Ducasse)','1 pz',226,'Se corta a 1564 · Casa Ikeda / herrajeras',0],
  ['Tubo FIX Ø25, 2.4 m','1 pz',125,'Salen 3 tubos de 765',1],
  ['Soportes (bridas) para tubo Ø25','6 pz',15,'',0],
  ['Tornillería y grapas (lista exacta en Compras)','lote',340,'Pocket, #8, #6, clavos y grapas',0],
@@ -50,7 +51,7 @@ window.STEPS=[
  {t:'Acabado: linaza y cera de abeja',d:'En caras visibles, bastidores y junquillos: linaza en capa delgada, retira el exceso a los 15 min y deja secar 24–48 h. Luego cera de abeja y pule. El yute se queda sin tratar. ⚠ Los trapos con linaza pueden autoincendiarse: extiéndelos a secar o mételos en agua.',n:[],f:[1,2,3,16,17,18,19,33,34,35,36,37,38,39,40],tools:['Trapo de algodón','Guantes','Paño para pulir'],min:90},
  {t:'Cuelga las puertas y ajusta',d:'Monta los carros en las puertas y cuélgalas en el riel doble: la Puerta A en el carril del frente (abre deslizando a la derecha) y la Puerta B en el carril de atrás (abre deslizando a la izquierda). Al cerrar se traslapan 40 mm al centro, coloca la guía inferior y ajusta la altura hasta que corran parejas.',n:[],f:[16,17,18,19,28,29],tools:['Desarmador','Llave del kit','Nivel'],min:45},
 ];
-window.BUY=[['Riel colgante doble ≤5 cm + 4 carros + guía inferior (Ducasse Ducloset doble 45 kg, Home Depot)','$389'],['Alternativa: riel U-20 aluminio 2 m (Madercenter, cortar a 1564)','$342.91'],['Tubo FIX Ø25, 2.4 m (salen 3 × 765)','$125'],['Triplay de pino 18 mm 122×244 – 3 hojas','$801 c/u'],['Triplay de pino 5 mm 122×244 – 3 hojas (fondo + tapas de puerta)','$233 c/u'],['Pino seco 19×63 (1×3) 2.44 m – 8 tablas (7 puertas + 1 listón 15)',''],['Pino 1×3 2.44 m extra para junquillos – 2 tablas',''],['Yute en rollo ≈ 4 m² (sin tratar)',''],['Cubrecanto de pino ≈ 10 m',''],['Resistol 850 – 1 L',''],['Sellador para madera',''],['Aceite de linaza cocida',''],['Cera de abeja (pasta)',''],['Lija 120 y 220',''],['Cuñas niveladoras para zócalo','']];
+window.BUY=[['Kit Ducloset doble 45 kg (Ducasse, Home Depot): 4 carros + tope + guía al piso','$389'],['Riel U-20 acero galvanizado 2 m (Ducasse) — el kit no lo trae','≈$226'],['Alternativa: riel U-20 aluminio 2 m (Madercenter, cortar a 1564)','$342.91'],['Tubo FIX Ø25, 2.4 m (salen 3 × 765)','$125'],['Triplay de pino 18 mm 122×244 – 3 hojas','$801 c/u'],['Triplay de pino 5 mm 122×244 – 3 hojas (fondo + tapas de puerta)','$233 c/u'],['Pino seco 19×63 (1×3) 2.44 m – 8 tablas (7 puertas + 1 listón 15)',''],['Pino 1×3 2.44 m extra para junquillos – 2 tablas',''],['Yute en rollo ≈ 4 m² (sin tratar)',''],['Cubrecanto de pino ≈ 10 m',''],['Resistol 850 – 1 L',''],['Sellador para madera',''],['Aceite de linaza cocida',''],['Cera de abeja (pasta)',''],['Lija 120 y 220',''],['Cuñas niveladoras para zócalo','']];
 // Ferretería con nombres como se piden en México. [nombre, cómo pedirlo, ícono]
 window.FER_MX=[
  ['Tornillo para unión oculta Kreg, rosca gruesa, 1¼″ (cabeza plana con arandela)','«Tornillo Kreg de bolsillo de 1¼ pulgada, rosca gruesa, para madera blanda/triplay.» Caja de 100 (Home Depot: pasillo de herramienta Kreg).','kreg'],
