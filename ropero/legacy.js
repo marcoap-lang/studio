@@ -14,7 +14,7 @@ function boardSVG(b,i){let o=`<svg viewBox="-10 -10 2460 200" width="100%"><rect
  for(const[n,l] of b){o+=`<rect x="${x}" y="0" width="${l}" height="180" fill="#E8C99A" stroke="#1F2A2E" stroke-width="4"/><text x="${x+l/2}" y="120" text-anchor="middle" font-size="100" font-weight="700">${String(n).padStart(2,'0')} · ${l}</text>`;x+=l+3}
  return o+`</svg>`}
 // thumbnail
-const BASE=[[0,0,18,2000],[1582,0,18,2000],[18,1982,1564,18],[18,50,1564,18],[791,68,18,1914],[809,1682,773,18],[809,252,773,18],[18,0,1564,50]];
+const BASE=[[0,0,18,2000],[1582,0,18,2000],[18,1982,1564,18],[18,50,1564,18],[791,68,18,1914],[809,1682,773,18],[809,252,773,18],[18,1035,773,18],[18,0,1564,50]];
 function thumb(nums,w=90){let o=`<svg viewBox="-20 -20 1640 2040" width="${w}">`;for(const r of BASE)o+=`<rect x="${r[0]}" y="${2000-r[1]-r[3]}" width="${r[2]}" height="${r[3]}" fill="#eee" stroke="#999" stroke-width="6"/>`;
  for(const n of nums){const r=pz(n).th,big=r[2]>300&&r[3]>300;o+=`<rect x="${r[0]}" y="${2000-r[1]-r[3]}" width="${r[2]}" height="${r[3]}" fill="#D9502B" fill-opacity="${big?.3:.9}" stroke="#D9502B" stroke-width="8"/>`}return o+'</svg>'}
 // piece drawing
@@ -31,7 +31,7 @@ function pieceSVG(p){const L=p.L,W=p.W,s=Math.max(L,W);let o=`<svg viewBox="${-s
  if(p.l==='K')for(const x of[0,L-63])o+=`<rect x="${x}" y="${-W}" width="63" height="${W}" fill="#b89a5e" stroke="#1F2A2E" stroke-width="${s/500}"/>`;
  const fs=s/14;o+=`<text x="${L/2}" y="${s*.11}" text-anchor="middle" font-size="${fs}">${p.l==='J'||p.l==='L'?'H≈':''}${L}</text><text x="${-s*.02}" y="${-W/2}" text-anchor="end" dominant-baseline="middle" font-size="${fs}">${W}</text></svg>`;return o}
 const nn=n=>String(n).padStart(2,'0');
-function waText(){let t='*ROPERO 160×200×55 – Lista de corte (mm)*\nCorte de sierra 3 mm. Escribir el NÚMERO en cada pieza. C = cubrecanto en canto frontal.\n';
+function waText(){let t='*ROPERO 160×200×55.3 – Lista de corte (mm)*\nCorte de sierra 3 mm. Escribir el NÚMERO en cada pieza. C = cubrecanto en canto frontal.\n';
  D.S.forEach(s=>{t+=`\n*${s.t}*\n`;s.p.forEach(([n])=>{const p=pz(n);t+=`${nn(n)} ${p.n}: ${dims(p)}${p.c?' (C)':''}\n`})});
  t+='\n*Pino seco 19×63 (1×3) – tablas 2440*\n';D.B.forEach((b,i)=>{t+=`T${i+1}: `+(typeof b==='string'?b:b.map(([n,l])=>`${nn(n)}=${l}`).join(' + '))+'\n'});
  t+='\n⚠ Piezas 16-19 (largueros) y 28-29 (tapas): altura H pendiente. NO CORTAR hasta comprar el riel y confirmar H = 1914 − descuento del fabricante.';return t}

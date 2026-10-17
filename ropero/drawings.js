@@ -17,14 +17,14 @@ function frontSVG(){const Y=y=>2000-y;let o=`<svg viewBox="-130 -60 1790 2200" w
 function interiorSVG(){const Y=y=>2000-y,fs=66;let o=`<svg viewBox="-260 -40 2100 2260" width="100%" role="img" aria-label="Distribución interior">`;
  o+=rc(18,Y(1982),773,1914,SAGE,0)+rc(809,Y(1982),773,1914,SAGE,0);
  o+=rc(0,0,1600,2000,'none');o+=rc(0,0,18,2000,'#fff')+rc(1582,0,18,2000,'#fff')+rc(18,0,1564,18,'#fff')+rc(18,Y(68),1564,18,'#fff')+rc(791,Y(1982),18,1914,'#fff');
- o+=rc(809,Y(1700),773,18,'#fff')+rc(809,Y(270),773,18,'#fff');
+ o+=rc(809,Y(1700),773,18,'#fff')+rc(809,Y(270),773,18,'#fff')+rc(18,Y(1053),773,18,'#fff');
  const rod=(x1,x2,y)=>ln(x1+30,Y(y),x2-30,Y(y),7,INK)+`<circle cx="${x1+30}" cy="${Y(y)}" r="9" fill="${INK}"/><circle cx="${x2-30}" cy="${Y(y)}" r="9" fill="${INK}"/>`;
  o+=rod(18,791,1900)+rod(18,791,980)+rod(809,1582,1630);
- o+=tx(404,Y(1500),'Prenda corta',fs,{c:ACC,w:600})+tx(404,Y(600),'Prenda corta',fs,{c:ACC,w:600})+tx(1195,Y(1850),'Repisa',fs,{c:ACC,w:600})+tx(1195,Y(1100),'Prenda larga',fs,{c:ACC,w:600})+tx(1195,Y(170),'Zapatos',fs,{c:ACC,w:600})+tx(1195,Y(400),'Zapatos',fs,{c:ACC,w:600});
+ o+=tx(404,Y(1500),'Prenda corta',fs,{c:ACC,w:600})+tx(404,Y(600),'Prenda corta',fs,{c:ACC,w:600})+tx(404,Y(1120),'Entrepaño 105',fs*.8,{c:GREY,w:600})+tx(1195,Y(1850),'Repisa',fs,{c:ACC,w:600})+tx(1195,Y(1100),'Prenda larga',fs,{c:ACC,w:600})+tx(1195,Y(170),'Zapatos',fs,{c:ACC,w:600})+tx(1195,Y(400),'Zapatos',fs,{c:ACC,w:600});
  for(const [x,y,t] of [[-70,1900,'190'],[-90,980,'98']])o+=dimV(Y(0),Y(y),x-(t==='98'?80:0),t,fs);
  for(const [x,y,t] of [[1690,1700,'170'],[1800,1630,'163']])o+=dimV(Y(0),Y(y),x,t,fs);
  o+=dimV(Y(0),Y(270),1590+0,'',0);
- o+=dimH(0,1600,2120,'160 cm · fondo 55',fs);return o+'</svg>'}
+ o+=dimH(0,1600,2120,'160 cm · fondo 55.3',fs);return o+'</svg>'}
 // Lámina de detalle por paso
 const TOOL={pocket:'Plantilla Kreg + taladro + punta cuadrada #2',tornillo_directo:'Taladro + broca guía + avellanador + desarmador',grapa:'Engrapadora',riel:'Taladro + broca 3 mm + desarmador'};
 function toolOf(u){if(/Clavo/.test(u.tornillo))return 'Martillo + botador (o taladro con broca 1.5 mm)';return TOOL[u.tipo]||'Taladro'}

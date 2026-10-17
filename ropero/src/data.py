@@ -26,13 +26,14 @@ names=['vertical izq.','vertical der.','superior','inferior']
 for i in range(8):
     d=i//4+1;v=i%4<2
     P.append(dict(no=len(P)+1,l='N',n=f'Junquillo puerta {d} {names[i%4]}',L=H if v else 802,W=12,T=15,mat='Pino (rajado de tabla 1×3)',c=0,nota='Inglete 45° en esquinas; clavar con clavo sin cabeza sobre el yute. Largo final a medida.',th=jth[i]))
+add(1,'Q','Entrepaño rigidizador izq.',773,547,18,'Triplay pino 18 mm',1,'Fijo, sección izquierda. Cara inferior a 1035 del suelo (cara superior 1053): deja ~43 libres sobre el tubo de 980 para el gancho y ~847 bajo el tubo de 1900 para camisas. A media altura rigidiza costado 01 y división 05. Pocket 3 por lado en cara inferior (60, 273.5, 487 del frente). Pieza 41.',[18,1035,773,18])
 K=3
 num=lambda l:[p['no'] for p in P if p['l']==l]
 A=num('A');J=num('J');Kk=num('K');Ll=num('L');I=num('I');N=num('N');H_=num('H');G=num('G')
 SHEETS=[
  dict(t='Hoja 1 · Triplay pino 18 mm',W=1220,H=2440,p=[(A[0],0,0,547,2000),(A[1],550,0,547,2000)]),
  dict(t='Hoja 2 · Triplay pino 18 mm',W=1220,H=2440,p=[(5,0,0,547,1914),(3,550,0,547,1564),(6,550,1567,461,773)]),
- dict(t='Hoja 3 · Triplay pino 18 mm',W=1220,H=2440,p=[(4,0,0,547,1564),(7,0,1567,331,773),(G[0],550,0,50,1564),(G[1],603,0,50,1564)]+[(h,656+53*i,0,50,461) for i,h in enumerate(H_)]),
+ dict(t='Hoja 3 · Triplay pino 18 mm',W=1220,H=2440,p=[(4,0,0,547,1564),(7,0,1567,331,773),(G[0],550,0,50,1564),(G[1],603,0,50,1564)]+[(h,656+53*i,0,50,461) for i,h in enumerate(H_)]+[(41,550,1567,547,773)]),
  dict(t='Hoja 4 · Triplay 6 mm',W=1220,H=2440,p=[(I[0],0,0,1220,1950)]),
  dict(t='Hoja 5 · Triplay 6 mm',W=1220,H=2440,p=[(I[1],0,0,380,1950)]),
  dict(t='Hoja 6 · Triplay 3 mm',W=1220,H=2440,p=[(Ll[0],0,0,802,H)]),
@@ -53,6 +54,6 @@ for s in SHEETS:
 for b in BOARDS:
     if isinstance(b,list): assert sum(l for _,l in b)+K*(len(b)-1)<=2440
 cut=[n for s in SHEETS for n,*_ in s['p']]+[n for b in BOARDS if isinstance(b,list) for n,_ in b]
-assert sorted(cut)==[p['no'] for p in P if p['l'] not in 'MN'],set(p['no'] for p in P)-set(cut)
+assert sorted(cut)==sorted(p['no'] for p in P if p['l'] not in 'MN'),set(p['no'] for p in P)-set(cut)
 json.dump(dict(P=P,S=SHEETS,B=BOARDS,H=H),open('data.json','w'),ensure_ascii=False)
 print(len(P),'pieces OK')

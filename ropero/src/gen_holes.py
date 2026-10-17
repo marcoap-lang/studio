@@ -28,6 +28,7 @@ face('05i',5,'División · cara izquierda',1914,547,'canto inferior','canto fron
 face('01',1,'Costado 01 · cara interior',2000,547,'canto inferior (suelo)','canto frontal',hs(SU,'U12',[(1900,270),(980,270)]),mirror=True)
 face('02',2,'Costado 02 · cara interior',2000,547,'canto inferior (suelo)','canto frontal',hs(SU,'U14',[(1630,270)]))
 face('06',6,'Repisa 06 · cara inferior',773,461,'canto izquierdo','canto frontal',hs(PK,'U06',ends(773,[60,401])),mirror=True)
+face('41',41,'Entrepaño 41 · cara inferior',773,547,'canto izquierdo','canto frontal',hs(PK,'U26',ends(773,[60,273.5,487])),mirror=True)
 face('07',7,'Zapatera 07 · cara inferior',773,331,'canto izquierdo','canto frontal',hs(PK,'U07',ends(773,[60,271])),mirror=True)
 face('10',10,'Travesaños 10, 11 y 12 · cara interior',461,50,'canto trasero','canto inferior',hs(PK,'U01',[(20,25),(441,25)]),count=3)
 hb=[50+185*i for i in range(11)]
@@ -46,12 +47,13 @@ face('14',14,'Fondo tira 14 · cara trasera',380,1950,'canto izquierdo de la tir
 sq=[0,H/3-31.5,2*H/3-31.5,H-63]
 face('16',16,'Largueros 16–19 · cara frontal (medias maderas)',H,63,'canto inferior','canto exterior',
      hs(DR,'U18',[(s+a,b) for s in sq for a,b in ((20,20),(43,43))]),pend='Altura H pendiente: medir riel comprado y recalcular (H/3, 2H/3).',count=4)
+U['uniones'].append({"id":"U26","piezas":[41,1,5],"tipo":"pocket","tornillo":"Pocket rosca gruesa #8 x 1-1/4\" (32 mm), cabeza de rondana","broca_guia":"Broca escalonada Kreg 3/8\" (plantilla y collar ajustados a 3/4\" / 18 mm)","broca_avellanado":None,"profundidad_mm":"según collar Kreg para 3/4\"","cantidad":6,"posiciones_mm":["3 por extremo: 60, 273.5 y 487 desde canto frontal","Cara inferior a 1035 del suelo (967 desde canto inferior de la división; 1035 en costado 01)"],"cara":"Cara inferior del entrepaño 41","paso_armado":"7 · Repisa, zapatera y entrepaño rigidizador","nota":"Cola PVA exterior. Rigidiza costado 01 y división a media altura."})
 U_by={u['id']:u for u in U['uniones']}
 # uniones por paso
 steps={}
 for u in U['uniones']:
     n=int(u['paso_armado'].split('·')[0])-1; steps.setdefault(n,[]).append(u['id'])
-steps[2]=['U01','U02','U03','U04','U05','U06','U07','U12','U13','U14']  # paso 3: perforar
+steps[2]=['U01','U02','U03','U04','U05','U06','U07','U26','U12','U13','U14']  # paso 3: perforar
 fix={'U15':{'tornillo':'#8 × 3/4″ (19 mm) cabeza plana — confirmar con ficha del riel'},
      'U18':{'tornillo':'#6 × 5/8″ (16 mm) cabeza plana'},'U19':{'tornillo':'#6 × 5/8″ (16 mm) cabeza plana'},
      'U06':{'posiciones_mm':['2 por extremo: 60 y 401 desde canto frontal (repisa de 461)','Cara superior a 1700 del suelo; se apoya contra el listón 15']},
@@ -62,6 +64,8 @@ fix={'U15':{'tornillo':'#8 × 3/4″ (19 mm) cabeza plana — confirmar con fich
      'U01':{'posiciones_mm':['1 bolsillo por extremo de cada travesaño (461 mm), centrado a 25 del canto inferior']}}
 for k,v in fix.items(): U_by[k].update(v)
 FER=U['ferreteria']
+for f_ in FER:
+    if f_['articulo'].startswith('Tornillo pocket'): f_['neto']+=6; f_['comprar']=46
 for f_ in FER:
     if f_['articulo'].startswith('Tornillo #8 x 3/4'): f_['articulo']='Tornillo #8 × 3/4″ (19 mm) cabeza plana para riel — confirmar con ficha'
     f_['articulo']=f_['articulo'].replace(' (acordado #8 x 1\"; ver C08)','')
