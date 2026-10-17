@@ -50,3 +50,32 @@ window.STEPS=[
  {t:'Cuelga las puertas y ajusta',d:'Monta los carros en las puertas, cuélgalas en el riel (puerta 1 al frente, puerta 2 atrás, traslape 40 mm), coloca la guía inferior y ajusta la altura hasta que corran parejas.',n:[],f:[16,17,18,19,28,29],tools:['Desarmador','Llave del kit','Nivel'],min:45},
 ];
 window.BUY=[['Riel colgante doble ≤5 cm + 4 carros + guía inferior (Ducasse Ducloset doble 45 kg, Home Depot)','$389'],['Alternativa: riel U-20 aluminio 2 m (Madercenter, cortar a 1564)','$342.91'],['Tubo FIX Ø25, 2.4 m (salen 3 × 765)','$125'],['Triplay de pino 18 mm 122×244 – 3 hojas','$735 c/u'],['Triplay 6 mm 122×244 – 2 hojas (fondo)',''],['Triplay 3 mm 122×244 – 2 hojas (tapas de puerta)',''],['Pino seco 19×63 (1×3) 2.44 m – 8 tablas (7 puertas + 1 listón 15)',''],['Pino 1×3 2.44 m extra para junquillos – 2 tablas',''],['Yute en rollo ≈ 4 m² (sin tratar)',''],['Cubrecanto de pino ≈ 10 m',''],['Resistol 850 – 1 L',''],['Sellador para madera',''],['Aceite de linaza cocida',''],['Cera de abeja (pasta)',''],['Lija 120 y 220',''],['Cuñas niveladoras para zócalo','']];
+// Ferretería con nombres como se piden en México. [nombre, cómo pedirlo, ícono]
+window.FER_MX=[
+ ['Tornillo para unión oculta Kreg, rosca gruesa, 1¼″ (cabeza plana con arandela)','«Tornillo Kreg de bolsillo de 1¼ pulgada, rosca gruesa, para madera blanda/triplay.» Caja de 100 (Home Depot: pasillo de herramienta Kreg).','kreg'],
+ ['Pija para madera cabeza plana #8 × 1½″','«Pija para madera, cabeza plana (avellanada), punta de cruz, del 8 por pulgada y media.» Por pieza o bolsita.','pija'],
+ ['Pija para madera cabeza plana #6 × 5/8″','«Pija para madera cabeza plana del 6 por cinco octavos.» Bolsa de 100 (fondo y puertas).','pija'],
+ ['Pija para madera cabeza plana #8 × 5/8″','«Pija cabeza plana del 8 por cinco octavos» (para soportes de tubo y guía de piso).','pija'],
+ ['Pija para madera cabeza plana #8 × ¾″ (para el riel)','«Pija cabeza plana del 8 por tres cuartos.» Confirma con los agujeros del riel antes de comprar.','pija'],
+ ['Clavo sin cabeza (clavo de acabado) 1″','«Clavo sin cabeza de 1 pulgada» o «clavo de acabado». Alternativa: pija #4 × ½″.','clavo'],
+ ['Grapa para engrapadora de tapicero 10 mm (3/8″)','«Grapa para tapicería de 10 mm» — revisa que sea del modelo de tu engrapadora (tipo T50 o similar).','grapa'],
+ ['Grapa para engrapadora de tapicero 8 mm (5/16″)','«Grapa de tapicería de 8 mm» para el yute.','grapa'],
+ ['Riel corredizo para clóset, colgante doble, aluminio (kit con 4 carretillas y topes)','«Kit de riel corredizo doble para puertas de clóset de madera, que aguante 15 kg o más por puerta.» Ej.: Ducasse Ducloset doble 45 kg.','riel'],
+ ['Guía de piso para puerta corrediza','«Guía inferior para puerta corrediza de clóset» (normalmente viene en el kit).','guia'],
+ ['Soporte para tubo de clóset ⌀25 mm (brida)','«Soporte o brida para tubo de clóset de una pulgada.» Cerrado (O) en un lado y abierto (U) en el otro para poder sacar el tubo.','soporte'],
+ ['Tubo de clóset ⌀25 mm (1″) de 2.4 m','«Tubo para clóset de una pulgada, 2.40 m» (FIX, cromado o redondo de acero).','tubo'],
+ ['Pegamento blanco para madera (Resistol 850)','«Resistol 850, 1 litro.»','cola'],
+ ['Plantilla Kreg para bolsillos (incluye broca escalonada 3/8″ con tope y punta cuadrada #2)','«Plantilla Kreg Pocket-Hole Jig» (Kreg 320 o 520). Trae la broca con su collar.','kreg'],
+ ['Brocas para madera 1.5, 2 y 3 mm + avellanador 8 mm + sierra copa 1″ (25 mm)','«Brocas para madera de 1.5, 2 y 3 mm, un avellanador y una sierra copa de 1 pulgada con su mandril.»','broca'],
+];
+window.FER_ICON={
+ kreg:'<path d="M6 30h30" stroke="#1F2A2E" stroke-width="3"/><path d="M14 14l16 16" stroke="#D9502B" stroke-width="5" stroke-linecap="round"/><circle cx="12" cy="12" r="5" fill="#fff" stroke="#1F2A2E" stroke-width="2"/>',
+ pija:'<path d="M6 21h6l4-5v10l-4-5" fill="#6B7B78"/><path d="M16 18h16l6 3-6 3H16z" fill="#6B7B78"/><path d="M19 18l2 6M23 18l2 6M27 18l2 6M31 18l2 6" stroke="#fff" stroke-width="1"/>',
+ clavo:'<path d="M8 21h28l4 0" stroke="#6B7B78" stroke-width="3"/><path d="M36 19l6 2-6 2z" fill="#6B7B78"/>',
+ grapa:'<path d="M10 30V14h24v16" fill="none" stroke="#6B7B78" stroke-width="3"/>',
+ riel:'<rect x="4" y="12" width="40" height="7" fill="#AEB8B5" stroke="#1F2A2E"/><circle cx="14" cy="23" r="4" fill="#1F2A2E"/><circle cx="32" cy="23" r="4" fill="#1F2A2E"/>',
+ guia:'<path d="M6 30h36M14 30V22h20v8" fill="none" stroke="#1F2A2E" stroke-width="2.5"/>',
+ soporte:'<circle cx="24" cy="22" r="9" fill="none" stroke="#1F2A2E" stroke-width="3"/><rect x="10" y="32" width="28" height="5" fill="#6B7B78"/>',
+ tubo:'<rect x="4" y="18" width="40" height="9" rx="4.5" fill="#AEB8B5" stroke="#1F2A2E"/>',
+ cola:'<rect x="16" y="14" width="16" height="24" rx="3" fill="#fff" stroke="#1F2A2E" stroke-width="2"/><path d="M21 14l3-7 3 7" fill="#D9502B"/>',
+ broca:'<path d="M6 22h14" stroke="#1F2A2E" stroke-width="5"/><path d="M20 22h20" stroke="#6B7B78" stroke-width="3"/><path d="M22 19l4 6M28 19l4 6M34 19l4 6" stroke="#fff" stroke-width="1.2"/>'};

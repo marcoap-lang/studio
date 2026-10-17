@@ -30,7 +30,7 @@ def sym(k,x,y,toward=1,cross=True):
     o+=L(x-r-3,y,x+r+3,y,.25)+L(x,y-r-3,x,y+r+3,.25)+f'<circle cx="{x:.2f}" cy="{y:.2f}" r=".5" fill="{INK}"/>'
     return o
 COLK={'pocket':ACC,'screw':INK,'support':SUP,'vent':GREY}
-NAMEK={'pocket':'Pocket (bolsillo Kreg)','screw':'Tornillo directo','support':'Soporte de tubo (centro)','vent':'Ventilación'}
+NAMEK={'pocket':'Bolsillo (Kreg)','screw':'Tornillo directo','support':'Soporte de tubo (centro)','vent':'Ventilación'}
 def legend(y,kinds):
     o=T(MX,y,'Leyenda:',2.8,w=700);x=MX+15
     for k in ['pocket','screw','support','vent']:
@@ -208,7 +208,7 @@ def guide():
     g2=[f'<svg class="pg" viewBox="0 0 {PW} {PH}" width="{PW}mm" height="{PH}mm" xmlns="http://www.w3.org/2000/svg"><rect width="{PW}" height="{PH}" fill="#fff"/>']
     g2.append(T(MX,MX+12,'Cómo leer una hoja',9,w=600,fam='Fraunces'))
     y=MX+24
-    items=[('pocket','Pocket (bolsillo Kreg)','Centra la guía Kreg en la cruz; el bolsillo sale hacia donde apunta la flecha. Collar en 3/4″.'),
+    items=[('pocket','Bolsillo (Kreg)','Centra la guía Kreg en la cruz; el bolsillo sale hacia donde apunta la flecha. Collar en 3/4″.'),
            ('screw','Tornillo directo','Broca guía del diámetro indicado y luego avellanador. La profundidad va con bandera de cinta.'),
            ('support','Soporte de tubo','La cruz es el CENTRO del soporte. Presenta el soporte centrado y marca sus 2 agujeros.'),
            ('vent','Ventilación','Sierra copa ⌀25, de lado a lado (solo en el fondo).')]
