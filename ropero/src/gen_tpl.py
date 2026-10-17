@@ -13,7 +13,7 @@ def bitd(h):
     return 'Broca ⌀'+h['bit'].replace('guía ','')
 def depthd(h):
     if h['k']=='pocket':return 'Prof.: collar Kreg en 3/4″ (18 mm)'
-    if h['k']=='vent':return 'Prof.: pasado (6 mm)'
+    if h['k']=='vent':return 'Prof.: pasado (5 mm)'
     d=h['depth'].split(' ')[0];return f'Prof. {d} mm · bandera de cinta a {d} mm de la punta'
 def sym(k,x,y,toward=1,cross=True):
     o=''

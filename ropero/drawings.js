@@ -29,7 +29,7 @@ function interiorSVG(){const Y=y=>2000-y,fs=66;let o=`<svg viewBox="-260 -40 210
  for(const [x,y,t] of [[-70,1900,'190'],[-90,980,'98']])o+=dimV(Y(0),Y(y),x-(t==='98'?80:0),t,fs);
  for(const [x,y,t] of [[1690,1700,'170'],[1800,1630,'163']])o+=dimV(Y(0),Y(y),x,t,fs);
  o+=dimV(Y(0),Y(270),1590+0,'',0);
- o+=dimH(0,1600,2120,'160 cm · fondo 55.3',fs);return o+'</svg>'}
+ o+=dimH(0,1600,2120,'160 cm · fondo 55.2',fs);return o+'</svg>'}
 // Lámina de detalle por paso
 const TOOL={pocket:'Plantilla Kreg + taladro + punta cuadrada #2',tornillo_directo:'Taladro + broca guía + avellanador + desarmador',grapa:'Engrapadora',riel:'Taladro + broca 3 mm + desarmador'};
 function toolOf(u){if(/Clavo/.test(u.tornillo))return 'Martillo + botador (o taladro con broca 1.5 mm)';return TOOL[u.tipo]||'Taladro'}

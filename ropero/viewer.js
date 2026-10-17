@@ -9,10 +9,10 @@ function box(no,rect){const p=P[no-1],[x,y,w,h]=rect||p.th;let z0=3,d=547;
  if(L==='E'||L==='F'){z0=22;d=p.W} if(L==='D'||L==='Q')d=p.W; // 05 y 41: 497, al ras de atrás
  if(no===8){z0=550-50-18;d=18} if(no===9){z0=3;d=18}
  if(L==='H'){z0=21;d=461}
- if(L==='I'){z0=-3;d=6}
+ if(L==='I'){z0=-2;d=5}
  if(no===15){z0=3;d=19}
  const A=x+w/2<800, base=A?528:503;
- if(L==='J'||L==='K'){z0=base;d=19} if(L==='L'){z0=base+19;d=3} if(L==='Y'){z0=base+22;d=2} if(L==='N'){z0=base+24;d=15}
+ if(L==='J'||L==='K'){z0=base;d=19} if(L==='L'){z0=base+19;d=5} if(L==='Y'){z0=base+24;d=2} if(L==='N'){z0=base+26;d=15}
  return {x,y,w,h,z0,d,tube:L==='M',A};}
 const COL={wood:0xE8C99A,ply:0xEDD3A8,grey:0xC5CEC8,hl:0xD9502B,steel:0x6B7B78,jute:0xC9AE7C,alu:0xAEB8B5,doorA:0xF0D6AA,doorB:0xD4AF7C,juteA:0xD0B688,juteB:0xB89C6A};
 export function createViewer(el,{labels=true,final=false}={}){

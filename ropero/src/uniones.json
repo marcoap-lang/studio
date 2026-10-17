@@ -435,7 +435,7 @@
     23
    ],
    "tipo": "grapa",
-   "tornillo": "Grapa tapicera 10 mm",
+   "tornillo": "Grapa tapicera 14 mm (9/16\u2033) — tapa de 5 mm",
    "broca_guia": null,
    "broca_avellanado": null,
    "profundidad_mm": 10,
@@ -459,7 +459,7 @@
     27
    ],
    "tipo": "grapa",
-   "tornillo": "Grapa tapicera 10 mm",
+   "tornillo": "Grapa tapicera 14 mm (9/16\u2033) — tapa de 5 mm",
    "broca_guia": null,
    "broca_avellanado": null,
    "profundidad_mm": 10,
@@ -515,7 +515,7 @@
     28
    ],
    "tipo": "tornillo_directo",
-   "tornillo": "Clavo sin cabeza 1\" (o tornillo #4 x 1/2\")",
+   "tornillo": "Clavo sin cabeza 1-1/4\" (32 mm) (o tornillo #4 x 1\")",
    "broca_guia": "1.5 mm en el junquillo (evita rajar)",
    "broca_avellanado": null,
    "profundidad_mm": 25,
@@ -538,7 +538,7 @@
     29
    ],
    "tipo": "tornillo_directo",
-   "tornillo": "Clavo sin cabeza 1\" (o tornillo #4 x 1/2\")",
+   "tornillo": "Clavo sin cabeza 1-1/4\" (32 mm) (o tornillo #4 x 1\")",
    "broca_guia": "1.5 mm en el junquillo (evita rajar)",
    "broca_avellanado": null,
    "profundidad_mm": 25,
@@ -625,12 +625,12 @@
    "comprar": 7
   },
   {
-   "articulo": "Clavo sin cabeza 1\" (o tornillo #4 x 1/2\") para junquillo",
+   "articulo": "Clavo sin cabeza 1-1/4\" (32 mm) (o tornillo #4 x 1\") para junquillo",
    "neto": 80,
    "comprar": 88
   },
   {
-   "articulo": "Grapa tapicera 10 mm",
+   "articulo": "Grapa tapicera 14 mm (9/16\u2033)",
    "neto": 280,
    "comprar": 308,
    "nota": "se vende por caja"

@@ -12,18 +12,18 @@ add(1,'F','Zapatera der.',773,331,18,'Triplay pino 18 mm',1,'Cara superior a 270
 add(1,'G','Zócalo frente',1564,50,18,'Triplay pino 18 mm',1,'Remetido 50 mm del frente.',[18,0,1564,50])
 add(1,'G','Zócalo atrás',1564,50,18,'Triplay pino 18 mm',0,'Al ras de atrás.',[18,0,1564,50])
 add(3,'H','Zócalo travesaño',461,50,18,'Triplay pino 18 mm',0,'Entre zócalos: extremos y centro. 1 pocket por extremo.',[[18,0,18,50],[791,0,18,50],[1564,0,18,50]])
-add(1,'I','Fondo grande',1950,1220,6,'Triplay 6 mm',0,'Desde la izquierda. Tornillo #6 × 5/8" (ver plantilla). Ventilación Ø25 en 2 filas a 140 y 1810 del canto inferior, a ≥30 de cualquier tornillo.',[0,50,1220,1950])
-add(1,'I','Fondo tira',1950,380,6,'Triplay 6 mm',0,'Completa a 1600 por la derecha. La unión cae sobre el listón 15.',[1220,50,380,1950])
+add(1,'I','Fondo grande',1950,1220,5,'Triplay pino 5 mm',0,'Desde la izquierda. Tornillo #6 × 5/8" (ver plantilla). Ventilación Ø25 en 2 filas a 140 y 1810 del canto inferior, a ≥30 de cualquier tornillo.',[0,50,1220,1950])
+add(1,'I','Fondo tira',1950,380,5,'Triplay pino 5 mm',0,'Completa a 1600 por la derecha. La unión cae sobre el listón 15.',[1220,50,380,1950])
 add(1,'P','Listón de unión del fondo',1914,63,19,'Pino seco 19×63',0,'Vertical por dentro, entre piso y techo, centrado a 1220 del lado izq. (cara de atrás al ras de los costados, por delante del fondo). Las dos piezas del fondo se atornillan a él.',[1189,68,63,1914])
 add(4,'J','Puerta larguero',H,63,19,'Pino seco 19×63',0,'Media madera 63×9.5 en ambos extremos + 2 intermedias a H/3 y 2H/3 (recalcular con H real). 2 tornillos #6 × 5/8" + cola por cruce. H = 1914 − descuento del riel (≈1880). NO CORTAR hasta tener el riel.',[[18,68,63,H],[757,68,63,H],[780,68,63,H],[1519,68,63,H]])
 add(8,'K','Puerta travesaño',802,63,19,'Pino seco 19×63',0,'Largo total 802; media madera 63 largo × 9.5 prof. en cada extremo. 4 por puerta: sup., inf. y 2 intermedios.',[[18,68,802,63],[18,68+H-63,802,63],[18,68+H/3-31,802,63],[18,68+2*H/3-31,802,63],[780,68,802,63],[780,68+H-63,802,63],[780,68+H/3-31,802,63],[780,68+2*H/3-31,802,63]])
-add(2,'L','Puerta tapa',H,802,3,'Triplay 3 mm',0,'Triplay de 3 mm con cara buena: queda a la vista en las franjas del bastidor (encerada). Pegada y engrapada a todo el bastidor cada 50 (grapa 10 mm). Encima van 3 paneles de yute. Altura = H.',[[18,68,802,H],[780,68,802,H]])
+add(2,'L','Puerta tapa',H,802,5,'Triplay pino 5 mm',0,'Triplay de pino 5 mm con cara buena: queda a la vista en las franjas del bastidor (encerada). Pegada y engrapada a todo el bastidor cada 50 (grapa 14 mm, 9/16″: 9 mm entran al bastidor). Va plana sobre el bastidor, sin rebajo. Encima van 3 paneles de yute. Altura = H.',[[18,68,802,H],[780,68,802,H]])
 add(3,'M','Tubo Ø25',765,25,25,'Tubo acero (FIX 2.4 m)',0,'Medir claro real (773) y descontar los soportes. Al centro del tubo: izq. 1900 y 980; der. 1630 (deja ~40 libres bajo la repisa para el gancho). Sale de 1 tubo de 2.4 m (3×765 + cortes).',[[18,1896,773,8],[18,976,773,8],[809,1626,773,8]])
 # Puertas opción 3: 3 paneles de yute por puerta, junquillo en los 4 lados de cada panel
 OPN=[(63,H/3-31.5),(H/3+31.5,2*H/3-31.5),(2*H/3+31.5,H-63)]
 def jq(no_name,L,W,T,mat,nota,pp,l='N'):
     P.append(dict(no=len(P)+1,l=l,n=no_name,L=L,W=W,T=T,mat=mat,c=0,nota=nota,th=pp[0],pp=pp,q=len(pp)))
-JN='Inglete 45° en las 4 esquinas de cada panel; clavo sin cabeza 1" cada ~150 (30 de cada extremo), sobre el yute y el borde del bastidor. Largo final a medida del hueco.'
+JN='Inglete 45° en las 4 esquinas de cada panel; clavo sin cabeza 1¼" (32 mm) cada ~150 (30 de cada extremo), sobre el yute y el borde del bastidor. Largo final a medida del hueco.'
 for dx,dn in ((18,'A'),(780,'B')):
     xl,xr=dx+63,dx+802-63-12
     jq(f'Puerta {dn} · junquillo vertical, paneles bajo y alto (×4)',532,12,15,'Pino (rajado de tabla 1×3)',JN,[[x,68+o[0],12,o[1]-o[0]] for o in (OPN[0],OPN[2]) for x in (xl,xr)])
@@ -44,16 +44,15 @@ SHEETS=[
  dict(t='Hoja 1 · Triplay pino 18 mm',W=1220,H=2440,p=[(A[0],5,5,547,2000),(A[1],556,5,547,2000)]),
  dict(t='Hoja 2 · Triplay pino 18 mm',W=1220,H=2440,p=[(5,5,5,497,1914),(3,506,5,547,1564),(6,506,1573,461,773)]),
  dict(t='Hoja 3 · Triplay pino 18 mm',W=1220,H=2440,p=[(4,5,5,547,1564),(7,5,1573,331,773),(G[0],556,5,50,1564),(G[1],610,5,50,1564)]+[(h,664+54*i,5,50,461) for i,h in enumerate(H_)]+[(41,556,1573,497,773)]),
- dict(t='Hoja 4 · Triplay 6 mm',W=1220,H=2440,p=[(I[0],0,5,1220,1950)]),
- dict(t='Hoja 5 · Triplay 6 mm',W=1220,H=2440,p=[(I[1],5,5,380,1950)]),
- dict(t='Hoja 6 · Triplay 3 mm',W=1220,H=2440,p=[(Ll[0],5,5,802,H)]),
- dict(t='Hoja 7 · Triplay 3 mm',W=1220,H=2440,p=[(Ll[1],5,5,802,H)]),
+ dict(t='Hoja 4 · Triplay pino 5 mm',W=1220,H=2440,p=[(I[0],0,5,1220,1950)]),
+ dict(t='Hoja 5 · Triplay pino 5 mm',W=1220,H=2440,p=[(Ll[0],5,5,802,H),(I[1],811,5,380,1950)]),
+ dict(t='Hoja 6 · Triplay pino 5 mm',W=1220,H=2440,p=[(Ll[1],5,5,802,H)]),
 ]
 BOARDS=[[(j,H)] for j in J]+[[(k,802) for k in Kk[0:3]],[(k,802) for k in Kk[3:6]],[(k,802) for k in Kk[6:8]],[(15,1914)],
  'Tabla 1×3 extra 1: rajar en 4 tiras ~12×15 × 2440 → tira 1 y 2: 4 × 532 c/u (33, 36); tira 3: 4 × 564 (34, 37); tira 4: 3 × 676 (35/38)',
  'Tabla 1×3 extra 2: 4 tiras → tiras 1–3: 3 × 676 c/u (resto de 35/38); tira 4 de repuesto']
 # checks
-assert 18+1564+18==1600 and 50+18+1914+18==2000 and 547+6==553 and 18+773+18+773+18==1600 and 1220+380==1600
+assert 18+1564+18==1600 and 50+18+1914+18==2000 and 547+5==552 and 18+773+18+773+18==1600 and 1220+380==1600
 for s in SHEETS:
     for no,x,y,w,h in s['p']:
         p=P[no-1]; assert sorted([w,h])==sorted([p['L'],p['W']]),(no,w,h); assert x+w<=s['W'] and y+h<=s['H'],no

@@ -31,7 +31,7 @@ function pieceSVG(p){const L=p.L,W=p.W,s=Math.max(L,W);let o=`<svg viewBox="${-s
  if(p.l==='K')for(const x of[0,L-63])o+=`<rect x="${x}" y="${-W}" width="63" height="${W}" fill="#b89a5e" stroke="#1F2A2E" stroke-width="${s/500}"/>`;
  const fs=s/14;o+=`<text x="${L/2}" y="${s*.11}" text-anchor="middle" font-size="${fs}">${p.l==='J'||p.l==='L'?'H≈':''}${L}</text><text x="${-s*.02}" y="${-W/2}" text-anchor="end" dominant-baseline="middle" font-size="${fs}">${W}</text></svg>`;return o}
 const nn=n=>String(n).padStart(2,'0');
-function waText(){let t='*ROPERO 160×200×55.3 – Lista de corte (mm)*\nDisco 4 mm entre cortes, refilado 5 mm. Escribir el NÚMERO en cada pieza. C = cubrecanto en canto frontal.\n';
+function waText(){let t='*ROPERO 160×200×55.2 – Lista de corte (mm)*\nDisco 4 mm entre cortes, refilado 5 mm. Escribir el NÚMERO en cada pieza. C = cubrecanto en canto frontal.\n';
  D.S.forEach(s=>{t+=`\n*${s.t}*\n`;s.p.forEach(([n])=>{const p=pz(n);t+=`${nn(n)} ${p.n}: ${dims(p)}${p.c?' (C)':''}\n`})});
  t+='\n*Pino seco 19×63 (1×3) – tablas 2440*\n';D.B.forEach((b,i)=>{t+=`T${i+1}: `+(typeof b==='string'?b:b.map(([n,l])=>`${nn(n)}=${l}`).join(' + '))+'\n'});
  t+='\n⚠ Piezas 16-19 (largueros) y 28-29 (tapas): altura H pendiente. NO CORTAR hasta comprar el riel y confirmar H = 1914 − descuento del fabricante.';return t}
