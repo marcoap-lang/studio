@@ -35,17 +35,19 @@ jq('Yute · panel medio, ambas puertas (×2)',604,716,1,'Yute sin tratar',YN,[[d
 JNAMES={16:'Puerta A · larguero izq.',17:'Puerta A · larguero der.',18:'Puerta B · larguero izq.',19:'Puerta B · larguero der.',20:'Puerta A · travesaño inferior',21:'Puerta A · travesaño superior',22:'Puerta A · travesaño intermedio bajo',23:'Puerta A · travesaño intermedio alto',24:'Puerta B · travesaño inferior',25:'Puerta B · travesaño superior',26:'Puerta B · travesaño intermedio bajo',27:'Puerta B · travesaño intermedio alto',28:'Puerta A (frente) · tapa',29:'Puerta B (atrás) · tapa'}
 for k,v in JNAMES.items(): P[k-1]['n']=v
 add(1,'Q','Entrepaño rigidizador izq.',773,497,18,'Triplay pino 18 mm',1,'Fijo, sección izquierda. Cara inferior a 1035 del suelo (cara superior 1053): deja ~43 libres sobre el tubo de 980 para el gancho y ~847 bajo el tubo de 1900 para camisas. A media altura rigidiza costado 01 y división 05. Fondo 497: al ras de atrás, frente 53 mm detrás del frente del mueble (libra el carril de las puertas). Pocket 3 por lado en cara inferior (60, 248.5, 437 de su canto frontal). Pieza 41.',[18,1035,773,18])
-K=3
+K=4
 num=lambda l:[p['no'] for p in P if p['l']==l]
 A=num('A');J=num('J');Kk=num('K');Ll=num('L');I=num('I');N=num('N');H_=num('H');G=num('G')
+TRIM,KERF=5,4  # refilado de fábrica 5 mm por lado; disco 4 mm entre TODOS los cortes
+_c=lambda i,w: TRIM+sum(w[:i])+KERF*i
 SHEETS=[
- dict(t='Hoja 1 · Triplay pino 18 mm',W=1220,H=2440,p=[(A[0],0,0,547,2000),(A[1],550,0,547,2000)]),
- dict(t='Hoja 2 · Triplay pino 18 mm',W=1220,H=2440,p=[(5,0,0,497,1914),(3,550,0,547,1564),(6,550,1567,461,773)]),
- dict(t='Hoja 3 · Triplay pino 18 mm',W=1220,H=2440,p=[(4,0,0,547,1564),(7,0,1567,331,773),(G[0],550,0,50,1564),(G[1],603,0,50,1564)]+[(h,656+53*i,0,50,461) for i,h in enumerate(H_)]+[(41,550,1567,497,773)]),
- dict(t='Hoja 4 · Triplay 6 mm',W=1220,H=2440,p=[(I[0],0,0,1220,1950)]),
- dict(t='Hoja 5 · Triplay 6 mm',W=1220,H=2440,p=[(I[1],0,0,380,1950)]),
- dict(t='Hoja 6 · Triplay 3 mm',W=1220,H=2440,p=[(Ll[0],0,0,802,H)]),
- dict(t='Hoja 7 · Triplay 3 mm',W=1220,H=2440,p=[(Ll[1],0,0,802,H)]),
+ dict(t='Hoja 1 · Triplay pino 18 mm',W=1220,H=2440,p=[(A[0],5,5,547,2000),(A[1],556,5,547,2000)]),
+ dict(t='Hoja 2 · Triplay pino 18 mm',W=1220,H=2440,p=[(5,5,5,497,1914),(3,506,5,547,1564),(6,506,1573,461,773)]),
+ dict(t='Hoja 3 · Triplay pino 18 mm',W=1220,H=2440,p=[(4,5,5,547,1564),(7,5,1573,331,773),(G[0],556,5,50,1564),(G[1],610,5,50,1564)]+[(h,664+54*i,5,50,461) for i,h in enumerate(H_)]+[(41,556,1573,497,773)]),
+ dict(t='Hoja 4 · Triplay 6 mm',W=1220,H=2440,p=[(I[0],0,5,1220,1950)]),
+ dict(t='Hoja 5 · Triplay 6 mm',W=1220,H=2440,p=[(I[1],5,5,380,1950)]),
+ dict(t='Hoja 6 · Triplay 3 mm',W=1220,H=2440,p=[(Ll[0],5,5,802,H)]),
+ dict(t='Hoja 7 · Triplay 3 mm',W=1220,H=2440,p=[(Ll[1],5,5,802,H)]),
 ]
 BOARDS=[[(j,H)] for j in J]+[[(k,802) for k in Kk[0:3]],[(k,802) for k in Kk[3:6]],[(k,802) for k in Kk[6:8]],[(15,1914)],
  'Tabla 1×3 extra 1: rajar en 4 tiras ~12×15 × 2440 → tira 1 y 2: 4 × 532 c/u (33, 36); tira 3: 4 × 564 (34, 37); tira 4: 3 × 676 (35/38)',
@@ -55,6 +57,7 @@ assert 18+1564+18==1600 and 50+18+1914+18==2000 and 547+6==553 and 18+773+18+773
 for s in SHEETS:
     for no,x,y,w,h in s['p']:
         p=P[no-1]; assert sorted([w,h])==sorted([p['L'],p['W']]),(no,w,h); assert x+w<=s['W'] and y+h<=s['H'],no
+        assert (x>=TRIM or w==s['W']) and y>=TRIM and (x+w<=s['W']-TRIM or w==s['W']) and y+h<=s['H']-TRIM,('refilado',no)
     r=s['p']
     for i in range(len(r)):
         for j in range(i+1,len(r)):
@@ -63,5 +66,5 @@ for b in BOARDS:
     if isinstance(b,list): assert sum(l for _,l in b)+K*(len(b)-1)<=2440
 cut=[n for s in SHEETS for n,*_ in s['p']]+[n for b in BOARDS if isinstance(b,list) for n,_ in b]
 assert sorted(cut)==sorted(p['no'] for p in P if p['l'] not in 'MNY'),set(p['no'] for p in P)-set(cut)
-json.dump(dict(P=P,S=SHEETS,B=BOARDS,H=H),open('data.json','w'),ensure_ascii=False)
+json.dump(dict(P=P,S=SHEETS,B=BOARDS,H=H,KERF=KERF,TRIM=TRIM),open('data.json','w'),ensure_ascii=False)
 print(len(P),'pieces OK')
