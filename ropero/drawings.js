@@ -8,11 +8,16 @@ const bub=(x,y,n,r)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${ACC}"/>${tx(x
 function dimH(x1,x2,y,t,fs){const a=fs*.35;return ln(x1,y,x2,y,.75)+ln(x1,y-a,x1,y+a,.75)+ln(x2,y-a,x2,y+a,.75)+tx((x1+x2)/2,y-fs*.7,t,fs,{c:GREY})}
 function dimV(y1,y2,x,t,fs){const a=fs*.35;return ln(x,y1,x,y2,.75)+ln(x-a,y1,x+a,y1,.75)+ln(x-a,y2,x+a,y2,.75)+tx(x-fs*.8,(y1+y2)/2,t,fs,{c:GREY,r:-90})}
 // Vista frontal con puertas de yute (pino y yute solo como material)
-function frontSVG(){const Y=y=>2000-y;let o=`<svg viewBox="-130 -60 1790 2200" width="100%" role="img" aria-label="Vista frontal del ropero"><defs><pattern id="jt" width="22" height="22" patternUnits="userSpaceOnUse"><rect width="22" height="22" fill="${JUTE}"/><path d="M0 11H22M11 0V22" stroke="#A88E5F" stroke-width="3" opacity=".55"/></pattern></defs>`;
- o+=rc(0,0,1600,2000,PINE);o+=rc(18,Y(50),1564,50,'#D9B784',.75);
- for(const [x,w] of [[18,802],[780,802]]){o+=rc(x,Y(68+1880),w,1880,PINE);o+=rc(x+63,Y(68+1880-63),w-126,1880-126,'url(#jt)',.75);o+=ln(x+w/2+(x<500?300:-300),Y(1050),x+w/2+(x<500?300:-300),Y(850),6)}
- o+=rc(18,Y(1982),1564,32,'#C8CFCC',.75);
- o+=dimH(0,1600,2070,'160 cm',72)+dimV(0,2000,-40,'200 cm',72);return o+'</svg>'}
+function frontSVG(){const Y=y=>2000-y,H=1880,fs=58;const OP=[[63,H/3-31.5],[H/3+31.5,2*H/3-31.5],[2*H/3+31.5,H-63]];
+ let o=`<svg viewBox="-130 -230 1790 2420" width="100%" role="img" aria-label="Vista frontal: dos puertas corredizas, A al frente y B atrás"><defs><pattern id="jt" width="22" height="22" patternUnits="userSpaceOnUse"><rect width="22" height="22" fill="${JUTE}"/><path d="M0 11H22M11 0V22" stroke="#A88E5F" stroke-width="3" opacity=".55"/></pattern><pattern id="jtb" width="22" height="22" patternUnits="userSpaceOnUse"><rect width="22" height="22" fill="#B89C6A"/><path d="M0 11H22M11 0V22" stroke="#957A4C" stroke-width="3" opacity=".55"/></pattern><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="${INK}"/></marker></defs>`;
+ o+=rc(0,0,1600,2000,PINE);o+=rc(18,Y(50),1564,50,'#D9B784',.75);o+=rc(18,Y(1982),1564,32,'#C8CFCC',.75);
+ const door=(x,fill,jt)=>{let d=rc(x,Y(68+H),802,H,fill);for(const [a,b] of OP)d+=rc(x+63,Y(68+b),676,b-a,`url(#${jt})`,.75)+rc(x+63,Y(68+b),676,b-a,'none',3,INK);return d};
+ o+=door(780,'#D4AF7C','jtb')+door(18,'#F0D6AA','jt');
+ o+=`<rect x="780" y="${Y(68+H)}" width="40" height="${H}" fill="${ACC}" fill-opacity=".25"/>`;
+ o+=ln(18+802-110,Y(1080),18+802-110,Y(880),7)+ln(780+802-110,Y(1080),780+802-110,Y(880),7);
+ o+=`<line x1="150" y1="-120" x2="650" y2="-120" stroke="${INK}" stroke-width="2.2" ${NS} marker-end="url(#ah)"/><line x1="1450" y1="-120" x2="950" y2="-120" stroke="${INK}" stroke-width="2.2" ${NS} marker-end="url(#ah)"/>`;
+ o+=tx(400,-175,'Puerta A (frente) →',fs,{w:700})+tx(1200,-175,'← Puerta B (atrás)',fs,{w:700,c:GREY})+tx(800,-40,'traslape 40',fs*.75,{c:ACC,w:700});
+ o+=dimH(0,1600,2080,'160 cm',fs+10)+dimV(0,2000,-50,'200 cm',fs+10);return o+'</svg>'}
 // Distribución interior real
 function interiorSVG(){const Y=y=>2000-y,fs=66;let o=`<svg viewBox="-260 -40 2100 2260" width="100%" role="img" aria-label="Distribución interior">`;
  o+=rc(18,Y(1982),773,1914,SAGE,0)+rc(809,Y(1982),773,1914,SAGE,0);

@@ -60,7 +60,7 @@
 <script src="page.js"></script>
 <script type="module">
 import {createViewer} from './viewer.js';
-createViewer(document.getElementById('hero'),{labels:false,final:true});
+window.__hero=createViewer(document.getElementById('hero'),{labels:false,final:true});
 const v=createViewer(document.getElementById('asm3d'),{labels:true});
 window.__asm=v;window.dispatchEvent(new Event('asm-ready'));
 </script>

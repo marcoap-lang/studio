@@ -69,5 +69,13 @@ for f_ in FER:
 for f_ in FER:
     if f_['articulo'].startswith('Tornillo #8 x 3/4'): f_['articulo']='Tornillo #8 × 3/4″ (19 mm) cabeza plana para riel — confirmar con ficha'
     f_['articulo']=f_['articulo'].replace(' (acordado #8 x 1\"; ver C08)','')
+
+for uid,door,tapa,jq,yu in (('U22','A',28,[33,34,35],[39,40]),('U23','B',29,[36,37,38],[39,40])):
+    U_by[uid].update(piezas=[tapa]+yu,cantidad=245,posiciones_mm=[f'Puerta {door}: 3 paneles de yute; perímetro de cada hueco a 6 del borde (queda bajo el junquillo), cada 30, del centro de cada lado hacia las esquinas','Panel bajo y alto 676×532: ~81 grapas c/u · panel medio 676×564: ~83'],cara=f'Cara frontal de la Puerta {door} (yute sobre la tapa {tapa})',paso_armado='14 · Yute en 3 paneles y junquillos')
+for uid,door,tapa,jq in (('U24','A',28,[33,34,35]),('U25','B',29,[36,37,38])):
+    U_by[uid].update(piezas=jq+[tapa],cantidad=56,posiciones_mm=['Junquillo vertical 532: 4 clavos (30 de cada extremo + 2 intermedios) · vertical 564: 5 · horizontal 676: 5','Al centro del ancho de 12 del junquillo; 12 junquillos por puerta'],cara=f'Cara frontal de los junquillos de la Puerta {door}',paso_armado='14 · Yute en 3 paneles y junquillos')
+for f_ in FER:
+    if f_['articulo'].startswith('Clavo sin cabeza'): f_['neto']=112; f_['comprar']=124
+    if f_['articulo'].startswith('Grapa 8 mm'): f_['neto']=490; f_['comprar']=540
 open('/workspace/studio/ropero/holes.js','w').write('window.FACES='+json.dumps(F,ensure_ascii=False)+';\nwindow.UNI='+json.dumps(U_by,ensure_ascii=False)+';\nwindow.STEPU='+json.dumps(steps)+';\nwindow.FER='+json.dumps(FER,ensure_ascii=False)+';\n')
 exec(open('/workspace/studio/ropero/src/gen_tpl.py').read())

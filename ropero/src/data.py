@@ -17,15 +17,23 @@ add(1,'I','Fondo tira',1950,380,6,'Triplay 6 mm',0,'Completa a 1600 por la derec
 add(1,'P','Listón de unión del fondo',1914,63,19,'Pino seco 19×63',0,'Vertical por dentro, entre piso y techo, centrado a 1220 del lado izq. (cara de atrás al ras de los costados, por delante del fondo). Las dos piezas del fondo se atornillan a él.',[1189,68,63,1914])
 add(4,'J','Puerta larguero',H,63,19,'Pino seco 19×63',0,'Media madera 63×9.5 en ambos extremos + 2 intermedias a H/3 y 2H/3 (recalcular con H real). 2 tornillos #6 × 5/8" + cola por cruce. H = 1914 − descuento del riel (≈1880). NO CORTAR hasta tener el riel.',[[18,68,63,H],[757,68,63,H],[780,68,63,H],[1519,68,63,H]])
 add(8,'K','Puerta travesaño',802,63,19,'Pino seco 19×63',0,'Largo total 802; media madera 63 largo × 9.5 prof. en cada extremo. 4 por puerta: sup., inf. y 2 intermedios.',[[18,68,802,63],[18,68+H-63,802,63],[18,68+H/3-31,802,63],[18,68+2*H/3-31,802,63],[780,68,802,63],[780,68+H-63,802,63],[780,68+H/3-31,802,63],[780,68+2*H/3-31,802,63]])
-add(2,'L','Puerta tapa',H,802,3,'Triplay 3 mm',0,'Pegada y engrapada a todo el bastidor cada 50 (grapa 10 mm). Yute encima. Altura = H.',[[18,68,802,H],[780,68,802,H]])
+add(2,'L','Puerta tapa',H,802,3,'Triplay 3 mm',0,'Triplay de 3 mm con cara buena: queda a la vista en las franjas del bastidor (encerada). Pegada y engrapada a todo el bastidor cada 50 (grapa 10 mm). Encima van 3 paneles de yute. Altura = H.',[[18,68,802,H],[780,68,802,H]])
 add(3,'M','Tubo Ø25',765,25,25,'Tubo acero (FIX 2.4 m)',0,'Medir claro real (773) y descontar los soportes. Al centro del tubo: izq. 1900 y 980; der. 1630 (deja ~40 libres bajo la repisa para el gancho). Sale de 1 tubo de 2.4 m (3×765 + cortes).',[[18,1896,773,8],[18,976,773,8],[809,1626,773,8]])
-jth=[]
-for dx in (18,780):
-    jth+= [[dx,68,12,H],[dx+790,68,12,H],[dx,68+H-12,802,12],[dx,68,802,12]]
-names=['vertical izq.','vertical der.','superior','inferior']
-for i in range(8):
-    d=i//4+1;v=i%4<2
-    P.append(dict(no=len(P)+1,l='N',n=f'Junquillo puerta {d} {names[i%4]}',L=H if v else 802,W=12,T=15,mat='Pino (rajado de tabla 1×3)',c=0,nota='Inglete 45° en esquinas; clavar con clavo sin cabeza sobre el yute. Largo final a medida.',th=jth[i]))
+# Puertas opción 3: 3 paneles de yute por puerta, junquillo en los 4 lados de cada panel
+OPN=[(63,H/3-31.5),(H/3+31.5,2*H/3-31.5),(2*H/3+31.5,H-63)]
+def jq(no_name,L,W,T,mat,nota,pp,l='N'):
+    P.append(dict(no=len(P)+1,l=l,n=no_name,L=L,W=W,T=T,mat=mat,c=0,nota=nota,th=pp[0],pp=pp,q=len(pp)))
+JN='Inglete 45° en las 4 esquinas de cada panel; clavo sin cabeza 1" cada ~150 (30 de cada extremo), sobre el yute y el borde del bastidor. Largo final a medida del hueco.'
+for dx,dn in ((18,'A'),(780,'B')):
+    xl,xr=dx+63,dx+802-63-12
+    jq(f'Puerta {dn} · junquillo vertical, paneles bajo y alto (×4)',532,12,15,'Pino (rajado de tabla 1×3)',JN,[[x,68+o[0],12,o[1]-o[0]] for o in (OPN[0],OPN[2]) for x in (xl,xr)])
+    jq(f'Puerta {dn} · junquillo vertical, panel medio (×2)',564,12,15,'Pino (rajado de tabla 1×3)',JN,[[x,68+OPN[1][0],12,OPN[1][1]-OPN[1][0]] for x in (xl,xr)])
+    jq(f'Puerta {dn} · junquillo horizontal (×6)',676,12,15,'Pino (rajado de tabla 1×3)',JN,[[dx+63,68+y,676,12] for o in OPN for y in (o[0],o[1]-12)])
+YN='Yute sin tratar, 20 mm más por lado que el hueco. Cola Resistol 850 sobre la tapa + grapa 8 mm cada 30, a 6 del borde del hueco (queda bajo el junquillo).'
+jq('Yute · paneles bajo y alto, ambas puertas (×4)',572,716,1,'Yute sin tratar',YN,[[dx+63,68+o[0],676,o[1]-o[0]] for dx in (18,780) for o in (OPN[0],OPN[2])],l='Y')
+jq('Yute · panel medio, ambas puertas (×2)',604,716,1,'Yute sin tratar',YN,[[dx+63,68+OPN[1][0],676,OPN[1][1]-OPN[1][0]] for dx in (18,780)],l='Y')
+JNAMES={16:'Puerta A · larguero izq.',17:'Puerta A · larguero der.',18:'Puerta B · larguero izq.',19:'Puerta B · larguero der.',20:'Puerta A · travesaño inferior',21:'Puerta A · travesaño superior',22:'Puerta A · travesaño intermedio bajo',23:'Puerta A · travesaño intermedio alto',24:'Puerta B · travesaño inferior',25:'Puerta B · travesaño superior',26:'Puerta B · travesaño intermedio bajo',27:'Puerta B · travesaño intermedio alto',28:'Puerta A (frente) · tapa',29:'Puerta B (atrás) · tapa'}
+for k,v in JNAMES.items(): P[k-1]['n']=v
 add(1,'Q','Entrepaño rigidizador izq.',773,547,18,'Triplay pino 18 mm',1,'Fijo, sección izquierda. Cara inferior a 1035 del suelo (cara superior 1053): deja ~43 libres sobre el tubo de 980 para el gancho y ~847 bajo el tubo de 1900 para camisas. A media altura rigidiza costado 01 y división 05. Pocket 3 por lado en cara inferior (60, 273.5, 487 del frente). Pieza 41.',[18,1035,773,18])
 K=3
 num=lambda l:[p['no'] for p in P if p['l']==l]
@@ -40,8 +48,8 @@ SHEETS=[
  dict(t='Hoja 7 · Triplay 3 mm',W=1220,H=2440,p=[(Ll[1],0,0,802,H)]),
 ]
 BOARDS=[[(j,H)] for j in J]+[[(k,802) for k in Kk[0:3]],[(k,802) for k in Kk[3:6]],[(k,802) for k in Kk[6:8]],[(15,1914)],
- 'Tabla 1×3 extra: rajar en tiras ~12×15 → 4 tiras de 2440 para junquillos verticales (piezas %s)'%', '.join(map(str,[N[0],N[1],N[4],N[5]])),
- 'Tabla 1×3 extra: rajar en tiras → junquillos horizontales 802 (piezas %s), 3 por tira'%', '.join(map(str,[N[2],N[3],N[6],N[7]]))]
+ 'Tabla 1×3 extra 1: rajar en 4 tiras ~12×15 × 2440 → tira 1 y 2: 4 × 532 c/u (33, 36); tira 3: 4 × 564 (34, 37); tira 4: 3 × 676 (35/38)',
+ 'Tabla 1×3 extra 2: 4 tiras → tiras 1–3: 3 × 676 c/u (resto de 35/38); tira 4 de repuesto']
 # checks
 assert 18+1564+18==1600 and 50+18+1914+18==2000 and 547+6==553 and 18+773+18+773+18==1600 and 1220+380==1600
 for s in SHEETS:
@@ -54,6 +62,6 @@ for s in SHEETS:
 for b in BOARDS:
     if isinstance(b,list): assert sum(l for _,l in b)+K*(len(b)-1)<=2440
 cut=[n for s in SHEETS for n,*_ in s['p']]+[n for b in BOARDS if isinstance(b,list) for n,_ in b]
-assert sorted(cut)==sorted(p['no'] for p in P if p['l'] not in 'MN'),set(p['no'] for p in P)-set(cut)
+assert sorted(cut)==sorted(p['no'] for p in P if p['l'] not in 'MNY'),set(p['no'] for p in P)-set(cut)
 json.dump(dict(P=P,S=SHEETS,B=BOARDS,H=H),open('data.json','w'),ensure_ascii=False)
 print(len(P),'pieces OK')
