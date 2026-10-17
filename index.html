@@ -1,11 +1,38 @@
-<!doctype html><html lang="es-MX"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Studio · Marco</title>
-<style>body{margin:0;font-family:system-ui,Roboto,sans-serif;background:#faf7f2;color:#222}header{padding:32px 18px 18px;max-width:900px;margin:auto}h1{margin:0;font-size:28px}header p{color:#666;margin:6px 0 0}
-main{max-width:900px;margin:auto;padding:0 18px 40px;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
-a.card{display:block;background:#fff;border:1px solid #e3dccf;border-radius:14px;overflow:hidden;text-decoration:none;color:inherit}a.card:hover{box-shadow:0 4px 14px #0001}
-.thumb{background:#efe6d6;display:flex;justify-content:center;padding:16px}.body{padding:14px}.body h2{margin:0 0 4px;font-size:18px}.body p{margin:0;color:#666;font-size:14px}.tag{display:inline-block;font-size:12px;background:#5a3e1b;color:#fff;border-radius:6px;padding:2px 8px;margin-top:8px}</style></head><body>
-<header><h1>Studio</h1><p>Muebles y diseño · proyectos con planos, despiece y armado</p></header>
-<main>
-<!-- PROYECTOS: copiar un bloque <a class="card"> por proyecto -->
-<a class="card" href="ropero/"><div class="thumb"><svg viewBox="0 0 160 200" width="96"><rect x="2" y="2" width="156" height="196" fill="#e9d8b4" stroke="#5a3e1b" stroke-width="3"/><rect x="8" y="8" width="72" height="182" fill="#d8c08a" stroke="#5a3e1b"/><rect x="80" y="8" width="72" height="182" fill="#cdb27a" stroke="#5a3e1b"/></svg></div>
-<div class="body"><h2>Ropero 160 × 200 × 55</h2><p>Puertas corredizas de yute, despiece numerado, cortes y armado.</p><span class="tag">Mueble</span></div></a>
-</main></body></html>
+<!doctype html><html lang="es-MX"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Studio · Muebles y diseños a medida</title><meta name="description" content="Muebles y diseños a medida: bonitos, de madera real y a buen precio. Planos, presupuesto y armado paso a paso.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Crect width=%2216%22 height=%2216%22 rx=%224%22 fill=%22%23c2662d%22/%3E%3C/svg%3E"><meta name="theme-color" content="#f7f5f1"><link rel="stylesheet" href="ropero/style.css">
+<style>.pc{display:block;text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:24px;overflow:hidden;transition:transform .2s,box-shadow .2s}.pc:hover{transform:translateY(-2px);box-shadow:0 12px 30px #0000000f}
+.pc .img{aspect-ratio:4/3;background:radial-gradient(ellipse at 50% 35%,#fff,#efe9df 70%);display:flex;align-items:center;justify-content:center}.pc .img img{width:100%;height:100%;object-fit:contain}
+.pc .b{padding:18px}.price{font-size:22px;font-weight:700;letter-spacing:-.02em}.soon{border-style:dashed;background:transparent;display:flex;align-items:center;justify-content:center;min-height:200px;color:var(--mute);border-radius:24px;border:1px dashed #d6cfc2;padding:20px;text-align:center}
+.how{counter-reset:h}.how .card{position:relative;padding-top:44px}.how .card:before{counter-increment:h;content:"0" counter(h);position:absolute;top:16px;left:18px;font-weight:700;color:var(--acc);font-size:13px;letter-spacing:.1em}</style></head><body>
+<header class="top"><div class="in"><a class="brand" href="./">Studio<span>.</span></a><nav><a href="#proyectos">Proyectos</a><a href="#como">Cómo funciona</a></nav></div></header>
+<main class="wrap">
+<section class="hero" style="padding:56px 0 36px">
+ <p class="eyebrow">Studio · por Marco</p>
+ <h1>Muebles y diseños a medida.<br><span style="color:var(--mute)">Bonitos, de madera real, a buen precio.</span></h1>
+ <p class="lead">Cada proyecto trae su plano, presupuesto real, lista de corte para la maderería y un armado paso a paso en 3D que puedes seguir desde el celular.</p>
+ <div style="margin-top:22px;display:flex;gap:10px;flex-wrap:wrap"><a class="btn" href="ropero/">Ver el primer proyecto</a><a class="btn ghost" href="#como">Cómo funciona</a></div>
+</section>
+<section class="blk" id="proyectos">
+ <p class="eyebrow">Proyectos</p><h2>Lo que estamos haciendo</h2>
+ <div class="grid g2" style="margin-top:18px">
+  <!-- PROYECTOS: copiar un bloque <a class="pc"> por proyecto -->
+  <a class="pc" href="ropero/"><div class="img"><img src="ropero/preview.png" alt="Vista 3D del ropero de pino con puertas de yute" loading="lazy"></div>
+   <div class="b"><span class="tag">Recámara · Proyecto 01</span><h3 style="font-size:20px;margin-top:10px">Ropero de pino con puertas de yute</h3>
+   <p class="small" style="margin:4px 0 12px">160 × 200 × 55 cm · 2 puertas corredizas · cera de abeja · 40 piezas · 16 pasos</p>
+   <div class="row" style="justify-content:space-between"><div><div class="small">Materiales desde</div><div class="price">≈ $6,699 MXN</div></div><span class="btn" style="padding:10px 16px">Ver →</span></div></div></a>
+  <div class="soon">Próximo proyecto<br>muy pronto</div>
+ </div>
+</section>
+<section class="blk" id="como">
+ <p class="eyebrow">Cómo funciona</p><h2>Del diseño al mueble terminado</h2>
+ <div class="grid g2 how" style="margin-top:18px">
+  <div class="card"><h3>Diseño a medida</h3><p class="small" style="margin:0">Medidas reales de tu espacio y de lo que vas a guardar.</p></div>
+  <div class="card"><h3>Presupuesto claro</h3><p class="small" style="margin:0">Partida por partida y comparado contra comprarlo hecho.</p></div>
+  <div class="card"><h3>Cortes en maderería</h3><p class="small" style="margin:0">Piezas numeradas y lista lista para mandar por WhatsApp.</p></div>
+  <div class="card"><h3>Armado en 3D</h3><p class="small" style="margin:0">Paso a paso, con piezas y herramienta de cada paso.</p></div>
+ </div>
+</section>
+</main>
+<footer><div class="wrap">Studio · studio.strate.lat</div></footer>
+</body></html>
