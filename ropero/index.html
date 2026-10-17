@@ -1,25 +1,27 @@
 <!doctype html><html lang="es-MX"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Ropero de pino con puertas de yute · Studio</title><meta name="description" content="Ropero de pino 160×200×55 con puertas corredizas de yute: presupuesto, despiece numerado y armado paso a paso en 3D.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Crect width=%2216%22 height=%2216%22 rx=%224%22 fill=%22%23c2662d%22/%3E%3C/svg%3E"><meta name="theme-color" content="#f7f5f1"><link rel="stylesheet" href="style.css">
+<title>Ropero de pino y yute · Strate Studio</title><meta name="description" content="Ropero de pino 160×200×55 con puertas corredizas de yute: presupuesto, despiece numerado y armado paso a paso en 3D.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Crect width=%2216%22 height=%2216%22 rx=%224%22 fill=%22%23D9502B%22/%3E%3C/svg%3E"><meta name="theme-color" content="#F4F3EE"><link rel="stylesheet" href="../fonts/fonts.css"><link rel="stylesheet" href="style.css">
 <script type="importmap">{"imports":{"three":"../vendor/three.module.js"}}</script>
 </head><body>
-<header class="top"><div class="in"><a class="brand" href="../">Studio<span>.</span></a>
+<header class="top"><div class="in"><a class="brand" href="../">Strate <span>Studio</span></a>
 <nav><a href="#resumen">Resumen</a><a href="#presupuesto">Presupuesto</a><a href="#armado">Armado</a><a href="#taller">Taller</a></nav></div></header>
 <main class="wrap">
 <section class="hero">
  <p class="eyebrow">Proyecto 01 · Recámara</p>
- <h1>Ropero de pino con puertas de yute</h1>
+ <h1>Ropero Pino &amp; Yute</h1>
  <p class="lead">160 × 200 × 55 cm. Dos puertas corredizas ligeras sobre riel colgante, madera de pino y acabado natural con linaza y cera de abeja.</p>
  <div class="chips"><span class="chip">Triplay de pino 18 mm</span><span class="chip">Puertas corredizas de yute</span><span class="chip">Riel doble de aluminio</span><span class="chip">Cera de abeja</span></div>
- <div class="stage" id="hero" style="margin-top:20px"><span class="hint">Gira con el dedo · pellizca para acercar</span></div>
+ <div class="grid g2" style="margin-top:20px"><div class="card"><p class="eyebrow">Vista frontal</p><div id="frontv" style="max-width:340px;margin:auto"></div></div><div class="card"><p class="eyebrow">Distribución interior (cm)</p><div id="intv" style="max-width:380px;margin:auto"></div></div></div>
+ <p class="eyebrow" style="margin-top:22px">Modelo 3D</p>
+ <div class="stage" id="hero"><span class="hint">Gira con el dedo · pellizca para acercar</span></div>
 </section>
 
 <section class="blk" id="resumen">
  <p class="eyebrow">Resumen</p><h2>Lo que vas a construir</h2>
  <div class="grid g4" style="margin-top:16px" id="stats"></div>
  <div class="grid g2" style="margin-top:14px">
-  <div class="card"><h3>Distribución</h3><p class="small" style="margin:0">Izquierda: dos tubos para prendas cortas a 190 y 98 cm. Derecha: repisa a 170 cm, tubo para prendas largas a 165 cm y zapatera abajo.</p></div>
-  <div class="card"><h3>Medidas clave</h3><p class="small" style="margin:0">Exterior 1600 × 2000 × 550 mm · fondo útil ≈ 48.5 cm · puertas de ≈22 mm y 7–8 kg · 773 mm libres por sección.</p></div>
+  <div class="card"><h3>Distribución</h3><p class="small" style="margin:0">Izquierda: dos tubos para prendas cortas a 190 y 98 cm. Derecha: repisa a 170 cm, tubo para prendas largas a 163 cm y zapatera abajo.</p></div>
+  <div class="card"><h3>Medidas clave</h3><p class="small" style="margin:0">Exterior 1600 × 2000 × 553 mm (fondo de 6 mm) · fondo útil ≈ 48.5 cm · puertas de ≈22 mm y 7–8 kg · 773 mm libres por sección.</p></div>
  </div>
 </section>
 
@@ -33,13 +35,13 @@
 
 <section class="blk" id="armado">
  <p class="eyebrow">Armado</p><h2>Paso a paso en 3D</h2>
- <p class="small">En naranja lo nuevo de cada paso con su número; en gris lo que ya armaste. Marca cada paso al terminarlo: se guarda en este teléfono.</p>
+ <p class="small">En naranja lo nuevo de cada paso con su número; en salvia lo que ya armaste. Debajo de cada paso, la lámina con cada tornillo, broca y profundidad, y el enlace a su <a href="plantillas/">plantilla de perforación 1:1</a>. Marca cada paso al terminarlo: se guarda en este teléfono.</p>
  <div class="prog" style="margin:14px 0 6px"><i id="bar"></i></div><div class="small" id="progt"></div>
  <div class="asm" style="margin-top:12px">
   <div class="stage" id="asm3d"><span class="hint">Gira · acerca · <button class="btn ghost" id="replay" style="padding:2px 10px;font-size:12px">↻ repetir</button></span></div>
   <div>
    <div class="stepnav"><button class="btn ghost" id="prev">← Anterior</button><button class="btn" id="next">Siguiente →</button></div>
-   <div class="card" id="stepcard"></div>
+   <div class="card" id="stepcard"></div><div id="plate"></div>
    <div class="dots" id="dots"></div>
   </div>
  </div>
@@ -52,8 +54,8 @@
  <div id="panes"></div>
 </section>
 </main>
-<footer><div class="wrap">Studio · diseño a medida por Marco · <a href="ropero_tecnico.pdf">Plano técnico (PDF)</a> · <a href="#" onclick="print();return false">Imprimir</a></div></footer>
-<script src="data.js"></script><script src="content.js"></script>
+<footer><div class="wrap">Strate Studio · <a href="ropero_tecnico.pdf">Plano técnico (PDF)</a> · <a href="plantillas/">Plantillas 1:1</a> · <a href="plantillas/plantillas_ropero.pdf">Plantillas (PDF)</a> · <a href="#" onclick="print();return false">Imprimir</a></div></footer>
+<script src="data.js"></script><script src="content.js"></script><script src="holes.js"></script><script src="drawings.js"></script>
 <script>const P=D.P,H=D.H;</script><script src="legacy.js"></script>
 <script src="page.js"></script>
 <script type="module">

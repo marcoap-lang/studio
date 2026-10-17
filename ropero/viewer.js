@@ -5,16 +5,16 @@ const P=window.D.P;
 // Posición 3D (mm): x desde la izquierda, y desde el suelo, z desde atrás (0) hacia el frente (550)
 function box(no){const p=P[no-1],[x,y,w,h]=p.th;let z0=3,d=547;
  const L=p.l;
- if(L==='E')d=480; if(L==='F')d=350;
+ if(L==='E'||L==='F')d=p.W;
  if(no===8){z0=550-50-18;d=18} if(no===9){z0=3;d=18}
  if(L==='H'){z0=21;d=461}
- if(L==='I'){z0=0;d=3}
+ if(L==='I'){z0=-3;d=6}
  if(no===15){z0=3;d=19}
  const door1=[16,17,20,21,22,23,28,33,34,35,36].includes(no);
  const base=door1?528:503;
  if(L==='J'||L==='K'){z0=base;d=19} if(L==='L'){z0=base+19;d=3} if(L==='N'){z0=base+22;d=15}
  return {x,y,w,h,z0,d,tube:L==='M'};}
-const COL={wood:0xd9b98a,ply:0xe6cfa5,grey:0xd8d5cf,hl:0xe2722f,steel:0x9aa3ab,jute:0xcdb487,alu:0xb8bec4};
+const COL={wood:0xE8C99A,ply:0xEDD3A8,grey:0xC5CEC8,hl:0xD9502B,steel:0x6B7B78,jute:0xC9AE7C,alu:0xAEB8B5};
 export function createViewer(el,{labels=true,final=false}={}){
  const W=()=>el.clientWidth,Hh=()=>el.clientHeight;
  const r=new THREE.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true});
@@ -23,9 +23,9 @@ export function createViewer(el,{labels=true,final=false}={}){
  const sc=new THREE.Scene();
  const cam=new THREE.PerspectiveCamera(32,W()/Hh(),10,20000);cam.position.set(2600,1900,3600);
  const ctl=new OrbitControls(cam,r.domElement);ctl.target.set(800,950,275);ctl.enableDamping=true;ctl.minDistance=1200;ctl.maxDistance=7000;ctl.maxPolarAngle=Math.PI*0.52;ctl.update();
- sc.add(new THREE.HemisphereLight(0xffffff,0xb9ae9e,1.6));const dl=new THREE.DirectionalLight(0xffffff,1.6);dl.position.set(1500,3000,2500);sc.add(dl);
- const fl=new THREE.Mesh(new THREE.CircleGeometry(1900,64),new THREE.MeshLambertMaterial({color:0xefeae2}));fl.rotation.x=-Math.PI/2;fl.position.set(800,-1,275);sc.add(fl);
- const meshes={};const edgeM=new THREE.LineBasicMaterial({color:0x6b5a44,transparent:true,opacity:.35});
+ sc.add(new THREE.HemisphereLight(0xffffff,0xA9B5AF,1.7));const dl=new THREE.DirectionalLight(0xffffff,1.6);dl.position.set(1500,3000,2500);sc.add(dl);
+ const fl=new THREE.Mesh(new THREE.CircleGeometry(1900,64),new THREE.MeshLambertMaterial({color:0xE9EDE8}));fl.rotation.x=-Math.PI/2;fl.position.set(800,-1,275);sc.add(fl);
+ const meshes={};const edgeM=new THREE.LineBasicMaterial({color:0x1F2A2E,transparent:true,opacity:.45});
  function mk(key,b,col){let g;
   if(b.tube){g=new THREE.CylinderGeometry(12.5,12.5,b.w-8,20);g.rotateZ(Math.PI/2)} else g=new THREE.BoxGeometry(b.w,b.h,b.d);
   const m=new THREE.Mesh(g,new THREE.MeshStandardMaterial({color:col,roughness:.85,metalness:b.tube?.6:0,transparent:true}));
