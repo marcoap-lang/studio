@@ -42,10 +42,10 @@ def vents(W,cols):
             if all(abs(x-c)>=42.5 for c in cols): out.append((x,y))
             x+=150
     return out
-face('13',13,'Fondo grande 13 · cara trasera',1220,1950,'canto izquierdo del mueble','canto inferior',
-     hs(BK,'U09',[(9,y) for y in hb]+[(800,y) for y in hb]+[(1205,y) for y in hb]+[(50+186.67*i,9) for i in range(7)]+[(50+186.67*i,1941) for i in range(7)])+hs(VT,'C14',vents(1220,[9,800,1205])),tpl=False,mirror=True)
-face('14',14,'Fondo tira 14 · cara trasera',380,1950,'canto izquierdo de la tira','canto inferior',
-     hs(BK,'U10',[(16,y) for y in hb]+[(371,y) for y in hb]+[(x,9) for x in (50,190,330)]+[(x,1941) for x in (50,190,330)])+hs(VT,'C14',vents(380,[16,371])),tpl=False,mirror=True)
+face('13',13,'Fondo grande 13 · cara trasera',1210,1950,'canto izquierdo del mueble','canto inferior',
+     hs(BK,'U09',[(9,y) for y in hb]+[(800,y) for y in hb]+[(1195,y) for y in hb]+[(50+186.67*i,9) for i in range(7)]+[(50+186.67*i,1941) for i in range(7)])+hs(VT,'C14',vents(1210,[9,800,1195])),tpl=False,mirror=True)
+face('14',14,'Fondo tira 14 · cara trasera',390,1950,'canto izquierdo de la tira','canto inferior',
+     hs(BK,'U10',[(16,y) for y in hb]+[(381,y) for y in hb]+[(x,9) for x in (50,190,330)]+[(x,1941) for x in (50,190,330)])+hs(VT,'C14',vents(390,[16,381])),tpl=False,mirror=True)
 sq=[0,H/3-31.5,2*H/3-31.5,H-63]
 face('16',16,'Largueros 16–19 · cara frontal (medias maderas)',H,63,'canto inferior','canto exterior',
      hs(DR,'U18',[(s+a,b) for s in sq for a,b in ((20,20),(43,43))]),count=4)

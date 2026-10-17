@@ -13,9 +13,9 @@ add(1,'F','Zapatera der.',773,331,18,'Triplay pino 18 mm',1,'Cara superior a 270
 add(1,'G','Zócalo frente',1564,50,18,'Triplay pino 18 mm',1,'Remetido 50 mm del frente.',[18,0,1564,50])
 add(1,'G','Zócalo atrás',1564,50,18,'Triplay pino 18 mm',0,'Al ras de atrás.',[18,0,1564,50])
 add(3,'H','Zócalo travesaño',461,50,18,'Triplay pino 18 mm',0,'Entre zócalos: extremos y centro. 1 pocket por extremo.',[[18,0,18,50],[791,0,18,50],[1564,0,18,50]])
-add(1,'I','Fondo grande',1950,1220,5,'Triplay pino 5 mm',0,'Desde la izquierda. Tornillo #6 × 5/8" (ver plantilla). Ventilación Ø25 en 2 filas a 140 y 1810 del canto inferior, a ≥30 de cualquier tornillo.',[0,50,1220,1950])
-add(1,'I','Fondo tira',1950,380,5,'Triplay pino 5 mm',0,'Completa a 1600 por la derecha. La unión cae sobre el listón 15.',[1220,50,380,1950])
-add(1,'P','Listón de unión del fondo',1914,63,19,'Pino seco 19×63',0,'Vertical por dentro, entre piso y techo, centrado a 1220 del lado izq. (cara de atrás al ras de los costados, por delante del fondo). Las dos piezas del fondo se atornillan a él.',[1189,68,63,1914])
+add(1,'I','Fondo grande',1950,1210,5,'Triplay pino 5 mm',0,'Desde la izquierda. Tornillo #6 × 5/8" (ver plantilla). Ventilación Ø25 en 2 filas a 140 y 1810 del canto inferior, a ≥30 de cualquier tornillo.',[0,50,1210,1950])
+add(1,'I','Fondo tira',1950,390,5,'Triplay pino 5 mm',0,'Completa a 1600 por la derecha. La unión cae sobre el listón 15.',[1210,50,390,1950])
+add(1,'P','Listón de unión del fondo',1914,63,19,'Pino seco 19×63',0,'Vertical por dentro, entre piso y techo, centrado a 1210 del lado izq. (cara de atrás al ras de los costados, por delante del fondo). Las dos piezas del fondo se atornillan a él.',[1179,68,63,1914])
 add(4,'J','Puerta larguero',H,63,19,'Pino seco 19×63',0,'Media madera 63×9.5 en ambos extremos + 2 intermedias a H/3 y 2H/3 (recalcular con H real). 2 tornillos #6 × 5/8" + cola por cruce. H = 1866 (riel Ducloset doble: 38 arriba + 10 abajo). Intermedias a 622 y 1244 del canto inferior.',[[18,Y0,63,H],[757,Y0,63,H],[780,Y0,63,H],[1519,Y0,63,H]])
 add(8,'K','Puerta travesaño',802,63,19,'Pino seco 19×63',0,'Largo total 802; media madera 63 largo × 9.5 prof. en cada extremo. 4 por puerta: sup., inf. y 2 intermedios.',[[18,Y0,802,63],[18,Y0+H-63,802,63],[18,Y0+H/3-31.5,802,63],[18,Y0+2*H/3-31.5,802,63],[780,Y0,802,63],[780,Y0+H-63,802,63],[780,Y0+H/3-31.5,802,63],[780,Y0+2*H/3-31.5,802,63]])
 add(2,'L','Puerta tapa',H,802,5,'Triplay pino 5 mm',0,'Tapa calada: triplay de pino 5 mm, cara buena al frente, con 3 ventanas de 676 de ancho recortadas con caladora (iguales a los huecos del bastidor; esquinas con radio 5). Va encima del yute, que queda 5 mm hundido. Pegada (Resistol 850) y engrapada al bastidor cada 50 (grapa 14 mm). Plana, sin rebajo ni junquillo. Altura = H.',[[18,Y0,802,H],[780,Y0,802,H]])
@@ -40,13 +40,13 @@ SHEETS=[
  dict(t='Hoja 1 · Triplay pino 18 mm',W=1220,H=2440,p=[(A[0],5,5,547,2000),(A[1],556,5,547,2000)]),
  dict(t='Hoja 2 · Triplay pino 18 mm',W=1220,H=2440,p=[(5,5,5,482,1914),(3,506,5,547,1564),(6,506,1573,461,773)]),
  dict(t='Hoja 3 · Triplay pino 18 mm',W=1220,H=2440,p=[(4,5,5,547,1564),(7,5,1573,331,773),(G[0],556,5,50,1564),(G[1],610,5,50,1564)]+[(h,664+54*i,5,50,461) for i,h in enumerate(H_)]+[(41,556,1573,482,773)]),
- dict(t='Hoja 4 · Triplay pino 5 mm',W=1220,H=2440,p=[(I[0],0,5,1220,1950)]),
- dict(t='Hoja 5 · Triplay pino 5 mm',W=1220,H=2440,p=[(Ll[0],5,5,802,H),(I[1],811,5,380,1950)]),
+ dict(t='Hoja 4 · Triplay pino 5 mm',W=1220,H=2440,p=[(I[0],5,5,1210,1950)]),
+ dict(t='Hoja 5 · Triplay pino 5 mm',W=1220,H=2440,p=[(Ll[0],5,5,802,H),(I[1],811,5,390,1950)]),
  dict(t='Hoja 6 · Triplay pino 5 mm',W=1220,H=2440,p=[(Ll[1],5,5,802,H)]),
 ]
 BOARDS=[[(j,H)] for j in J]+[[(k,802) for k in Kk[0:3]],[(k,802) for k in Kk[3:6]],[(k,802) for k in Kk[6:8]],[(15,1914)]]
 # checks
-assert 18+1564+18==1600 and 50+18+1914+18==2000 and 547+5==552 and 18+773+18+773+18==1600 and 1220+380==1600
+assert 18+1564+18==1600 and 50+18+1914+18==2000 and 547+5==552 and 18+773+18+773+18==1600 and 1210+390==1600
 for s in SHEETS:
     for no,x,y,w,h in s['p']:
         p=P[no-1]; assert sorted([w,h])==sorted([p['L'],p['W']]),(no,w,h); assert x+w<=s['W'] and y+h<=s['H'],no
