@@ -34,5 +34,5 @@ const nn=n=>String(n).padStart(2,'0');
 function waText(){let t='*ROPERO 160×200×55.2 – Lista de corte (mm)*\nDisco 4 mm entre cortes, refilado 5 mm. Escribir el NÚMERO en cada pieza. C = cubrecanto en canto frontal.\n';
  D.S.forEach(s=>{t+=`\n*${s.t}*\n`;s.p.forEach(([n])=>{const p=pz(n);t+=`${nn(n)} ${p.n}: ${dims(p)}${p.c?' (C)':''}\n`})});
  t+='\n*Pino seco 19×63 (1×3) – tablas 2440*\n';D.B.forEach((b,i)=>{t+=`T${i+1}: `+(typeof b==='string'?b:b.map(([n,l])=>`${nn(n)}=${l}`).join(' + '))+'\n'});
- t+='\n⚠ Piezas 16-19 (largueros) y 28-29 (tapas): altura H pendiente. NO CORTAR hasta comprar el riel y confirmar H = 1914 − descuento del fabricante.';return t}
+ t+='\nPuertas: H = 1866 mm (riel Ducloset Doble U-20). Tapas 28-29 caladas de 5 mm, sin junquillo.';return t}
 function copyWA(){const t=waText();const ok=()=>{$('#cp').textContent='✔ Copiado'};if(navigator.clipboard&&isSecureContext)navigator.clipboard.writeText(t).then(ok,fb);else fb();function fb(){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove();ok()}}

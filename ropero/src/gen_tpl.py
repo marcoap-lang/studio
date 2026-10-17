@@ -10,10 +10,12 @@ def L(x1,y1,x2,y2,w=.4,c=INK,d=''):return f'<line x1="{x1:.2f}" y1="{y1:.2f}" x2
 def bitd(h):
     if h['k']=='pocket':return 'Broca Kreg ⌀3/8″ (9.5 mm)'
     if h['k']=='vent':return 'Sierra copa ⌀25 mm'
+    if h['k']=='win':return 'Broca ⌀10 mm (arranque de caladora)'
     return 'Broca ⌀'+h['bit'].replace('guía ','')
 def depthd(h):
     if h['k']=='pocket':return 'Prof.: collar Kreg en 3/4″ (18 mm)'
     if h['k']=='vent':return 'Prof.: pasado (5 mm)'
+    if h['k']=='win':return 'Pasado · luego corta con caladora por la línea'
     d=h['depth'].split(' ')[0];return f'Prof. {d} mm · bandera de cinta a {d} mm de la punta'
 def sym(k,x,y,toward=1,cross=True):
     o=''
@@ -24,16 +26,17 @@ def sym(k,x,y,toward=1,cross=True):
         r=3
     elif k=='screw':o+=f'<circle cx="{x:.2f}" cy="{y:.2f}" r="3.2" fill="#fff" stroke="{INK}" stroke-width=".6"/>';r=3.2
     elif k=='support':o+=f'<path d="M{x:.2f} {y-4.5:.2f}l4.5 4.5l-4.5 4.5l-4.5 -4.5z" fill="#fff" stroke="{SUP}" stroke-width=".7"/>';r=4.5
+    elif k=='win':o+=f'<circle cx="{x:.2f}" cy="{y:.2f}" r="5" fill="{ACC}" fill-opacity=".15" stroke="{ACC}" stroke-width=".6"/>';r=5
     else:o+=f'<circle cx="{x:.2f}" cy="{y:.2f}" r="12.5" fill="none" stroke="{GREY}" stroke-width=".6" stroke-dasharray="1.5 1"/>';r=12.5
     # cruz de centro para puntear
     if not cross:return o
     o+=L(x-r-3,y,x+r+3,y,.25)+L(x,y-r-3,x,y+r+3,.25)+f'<circle cx="{x:.2f}" cy="{y:.2f}" r=".5" fill="{INK}"/>'
     return o
-COLK={'pocket':ACC,'screw':INK,'support':SUP,'vent':GREY}
-NAMEK={'pocket':'Bolsillo (Kreg)','screw':'Tornillo directo','support':'Soporte de tubo (centro)','vent':'Ventilación'}
+COLK={'pocket':ACC,'screw':INK,'support':SUP,'vent':GREY,'win':ACC}
+NAMEK={'pocket':'Bolsillo (Kreg)','screw':'Tornillo directo','support':'Soporte de tubo (centro)','vent':'Ventilación','win':'Esquina de ventana'}
 def legend(y,kinds):
     o=T(MX,y,'Leyenda:',2.8,w=700);x=MX+15
-    for k in ['pocket','screw','support','vent']:
+    for k in ['pocket','screw','support','vent','win']:
         if k not in kinds:continue
         o+=sym(k,x+3,y-1,1,False) if k!='vent' else f'<circle cx="{x+3}" cy="{y-1}" r="2.5" fill="none" stroke="{GREY}" stroke-width=".6" stroke-dasharray="1 .7"/>'
         o+=T(x+(28 if k=='pocket' else 9),y,NAMEK[k],2.6,COLK[k],w=600);x+=(70 if k=='pocket' else 46)
@@ -104,6 +107,10 @@ def sheet_svg(f,s,k,n,pn,ptot,step=None):
     # pieza (contorno + relleno suave)
     a=P(0,f['W']);b=P(f['L'],0)
     o.append(f'<rect x="{a[0]:.2f}" y="{a[1]:.2f}" width="{b[0]-a[0]:.2f}" height="{b[1]-a[1]:.2f}" fill="{BG}" stroke="{INK}" stroke-width="1"/>')
+    for (cx0,cx1,cy0,cy1) in f.get('cut') or []:
+        p0=P(cx0,cy1);p1=P(cx1,cy0)
+        o.append(f'<rect x="{p0[0]:.2f}" y="{p0[1]:.2f}" width="{p1[0]-p0[0]:.2f}" height="{p1[1]-p0[1]:.2f}" rx="5" fill="#fff" stroke="{ACC}" stroke-width=".7" stroke-dasharray="3 1.5"/>')
+        o.append(T(p0[0]+12,p0[1]+12,'✂ VENTANA: corta con caladora por la línea punteada (por dentro del trazo)',2.6,ACC,w=700))
     # traslapes y cortes
     if s['i']<s['nx']-1:
         xa,_=P(s['x0']+CW-OV,0);o.append(f'<rect x="{xa:.2f}" y="{TOP}" width="{OV}" height="{CH}" fill="{SAGE}" fill-opacity=".7"/>'+T(xa+OV/2,TOP+CH/2,'TRASLAPE · aquí se encima la hoja siguiente',2.4,INK,'middle',600,extra=f'transform="rotate(-90 {xa+OV/2:.2f} {TOP+CH/2:.2f})"'))
@@ -221,7 +228,7 @@ def guide():
     tools=['Impresora (papel carta) y tijeras','Cinta masking','Flexómetro (para la regla de 10 cm)','Punzón o clavo + martillo','Taladro y brocas ⌀2, ⌀3 mm; avellanador ⌀8 mm','Plantilla Kreg + broca escalonada 3/8″ con collar','Sierra copa ⌀25 (ventilación del fondo)','Cinta de color para la bandera de profundidad']
     for i,t in enumerate(tools):g2.append(T(MX+(0 if i%2==0 else CW/2),y+(i//2)*6,'☐ '+t,3.1))
     y+=30
-    g2.append(f'<rect x="{MX}" y="{y}" width="{CW}" height="20" rx="2" fill="#fff" stroke="{ACC}" stroke-width=".8"/>'+T(MX+4,y+7,'Hojas «PENDIENTE: MEDIR RIEL COMPRADO»',3.4,ACC,w=800)+T(MX+4,y+13,'No perfores el riel ni cortes las puertas hasta tener el riel en mano y su ficha (altura H y agujeros).',3))
+    g2.append(f'<rect x="{MX}" y="{y}" width="{CW}" height="26" rx="2" fill="#fff" stroke="{ACC}" stroke-width=".8"/>'+T(MX+4,y+7,'Ventanas de las tapas caladas 28–29 (paso 12) · caladora',3.4,ACC,w=800)+T(MX+4,y+13,'1) Pega la hoja, punzona y barrena ⌀10 pasado en las 4 esquinas de cada ventana (dan el radio 5). 2) Traza las rectas entre barrenos con regla.',2.6)+T(MX+4,y+18,'3) Prensa una regla-guía y corta con caladora y hoja fina (madera, diente fino) por dentro de la línea, cara buena abajo para no astillar.',2.6)+T(MX+4,y+23,'4) Lija los bordes con taco (grano 120→180). Ventanas de 676 de ancho; alturas en la hoja. El sobrante es retazo.',2.6))
     g2.append(ruler(PH-MX-3)+'</svg>')
     return [''.join(g1),''.join(g2)]
 # ---------- armar documentos ----------

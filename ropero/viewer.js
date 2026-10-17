@@ -6,13 +6,13 @@ const P=window.D.P;
 const DOORL='JKLNY';
 function box(no,rect){const p=P[no-1],[x,y,w,h]=rect||p.th;let z0=3,d=547;
  const L=p.l;
- if(L==='E'||L==='F'){z0=22;d=p.W} if(L==='D'||L==='Q')d=p.W; // 05 y 41: 497, al ras de atrás
+ if(L==='E'||L==='F'){z0=22;d=p.W} if(L==='D'||L==='Q')d=p.W; // 05 y 41: 482, al ras de atrás
  if(no===8){z0=550-50-18;d=18} if(no===9){z0=3;d=18}
  if(L==='H'){z0=21;d=461}
  if(L==='I'){z0=-2;d=5}
  if(no===15){z0=3;d=19}
- const A=x+w/2<800, base=A?528:503;
- if(L==='J'||L==='K'){z0=base;d=19} if(L==='L'){z0=base+19;d=5} if(L==='Y'){z0=base+24;d=2} if(L==='N'){z0=base+26;d=15}
+ const A=x+w/2<800, base=A?525:492;
+ if(L==='J'||L==='K'){z0=base;d=19} if(L==='L'){z0=base+20;d=5} if(L==='Y'){z0=base+19;d=1}
  return {x,y,w,h,z0,d,tube:L==='M',A};}
 const COL={wood:0xE8C99A,ply:0xEDD3A8,grey:0xC5CEC8,hl:0xD9502B,steel:0x6B7B78,jute:0xC9AE7C,alu:0xAEB8B5,doorA:0xF0D6AA,doorB:0xD4AF7C,juteA:0xD0B688,juteB:0xB89C6A};
 export function createViewer(el,{labels=true,final=false}={}){
@@ -39,14 +39,15 @@ export function createViewer(el,{labels=true,final=false}={}){
   if(labels){const div=document.createElement('div');div.className='lbl';div.textContent=key;const o=new CSS2DObject(div);
    const b=bs[0];o.position.set(c0.x,c0.y+(b.tube?40:0),b.tube?c0.z:b.z0+b.d+2);if(['L','I','Y'].includes(P[(+key||1)-1]?.l))o.position.y=b.y+b.h*.7;grp.add(o);grp.userData.lbl=o;o.visible=false}
   meshes[key]=grp;return grp}
- for(const p of P){const rects=(p.pp||[p.th]).map(r=>box(p.no,r));const A=rects[0].A;
+ for(const p of P){if(p.l==='X')continue;let rects=(p.pp||[p.th]).map(r=>box(p.no,r));
+  if(p.l==='L'){const r=rects[0],O=window.D.OPN,st=[[0,63],...O.slice(0,-1).map((o,i)=>[o[1],O[i+1][0]]),[O[O.length-1][1],r.h]];rects=[{...r,w:63},{...r,x:r.x+r.w-63,w:63},...st.map(([a,b])=>({...r,x:r.x+63,w:r.w-126,y:r.y+a,h:b-a}))]}const A=rects[0].A;
   let base=p.l==='M'?COL.steel:p.mat.includes('18')||p.l==='I'?COL.ply:COL.wood;
   if('JKLN'.includes(p.l))base=A?COL.doorA:COL.doorB; if(p.l==='Y')base=COL.jute;
   mk(p.no,rects,base)}
- mk('riel',{x:18,y:1950,w:1564,h:32,z0:500,d:50},COL.alu);
+ mk('riel',{x:18,y:1952,w:1564,h:30,z0:490,d:60},COL.alu);
  // Puertas: zona de traslape, flechas y etiquetas
  const extras=new THREE.Group();sc.add(extras);
- const ov=new THREE.Mesh(new THREE.BoxGeometry(40,1880,62),new THREE.MeshBasicMaterial({color:COL.hl,transparent:true,opacity:.28,depthWrite:false}));ov.position.set(800,68+940,531);extras.add(ov);
+ const ov=new THREE.Mesh(new THREE.BoxGeometry(40,1866,58),new THREE.MeshBasicMaterial({color:COL.hl,transparent:true,opacity:.28,depthWrite:false}));ov.position.set(800,78+933,521);extras.add(ov);
  const arrM=new THREE.MeshBasicMaterial({color:0x1F2A2E});
  function arrow(x,z,dir){const g=new THREE.Group();const sh=new THREE.Mesh(new THREE.CylinderGeometry(7,7,260,12),arrM);sh.rotation.z=Math.PI/2;g.add(sh);const hd=new THREE.Mesh(new THREE.ConeGeometry(22,60,16),arrM);hd.rotation.z=-dir*Math.PI/2;hd.position.x=dir*150;g.add(hd);g.position.set(x,1180,z);extras.add(g)}
  arrow(420,600,1);arrow(1200,575,-1);
