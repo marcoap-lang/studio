@@ -22,13 +22,13 @@ face('04i',4,'Piso · cara inferior',1564,547,'canto izquierdo (visto de frente)
 xs=[50,250,450,650,914,1114,1314,1514]
 face('04s',4,'Piso · cara superior (fijación al zócalo)',1564,547,'canto izquierdo','canto frontal',
      hs(SD,'U11',[(x,59) for x in xs]+[(x,538) for x in xs]+[(9,150),(9,400),(1555,150),(1555,400)]),tpl=False)
-face('05d',5,'División · cara derecha',1914,547,'canto inferior','canto frontal',
-     hs(PK,'U04',[(1894,y) for y in (60,273.5,487)])+hs(PK,'U05',[(20,y) for y in (60,273.5,487)])+hs(SU,'U13',[(1630-68,270)]),mirror=True)
-face('05i',5,'División · cara izquierda',1914,547,'canto inferior','canto frontal',hs(SU,'U13',[(1832,270),(912,270)]))
+face('05d',5,'División · cara derecha',1914,497,'canto inferior','canto frontal',
+     hs(PK,'U04',[(1894,y) for y in (60,248.5,437)])+hs(PK,'U05',[(20,y) for y in (60,248.5,437)])+hs(SU,'U13',[(1630-68,217)]),mirror=True)
+face('05i',5,'División · cara izquierda',1914,497,'canto inferior','canto frontal',hs(SU,'U13',[(1832,217),(912,217)]))
 face('01',1,'Costado 01 · cara interior',2000,547,'canto inferior (suelo)','canto frontal',hs(SU,'U12',[(1900,270),(980,270)]),mirror=True)
 face('02',2,'Costado 02 · cara interior',2000,547,'canto inferior (suelo)','canto frontal',hs(SU,'U14',[(1630,270)]))
 face('06',6,'Repisa 06 · cara inferior',773,461,'canto izquierdo','canto frontal',hs(PK,'U06',ends(773,[60,401])),mirror=True)
-face('41',41,'Entrepaño 41 · cara inferior',773,547,'canto izquierdo','canto frontal',hs(PK,'U26',ends(773,[60,273.5,487])),mirror=True)
+face('41',41,'Entrepaño 41 · cara inferior',773,497,'canto izquierdo','canto frontal',hs(PK,'U26',ends(773,[60,248.5,437])),mirror=True)
 face('07',7,'Zapatera 07 · cara inferior',773,331,'canto izquierdo','canto frontal',hs(PK,'U07',ends(773,[60,271])),mirror=True)
 face('10',10,'Travesaños 10, 11 y 12 · cara interior',461,50,'canto trasero','canto inferior',hs(PK,'U01',[(20,25),(441,25)]),count=3)
 hb=[50+185*i for i in range(11)]
@@ -47,7 +47,7 @@ face('14',14,'Fondo tira 14 · cara trasera',380,1950,'canto izquierdo de la tir
 sq=[0,H/3-31.5,2*H/3-31.5,H-63]
 face('16',16,'Largueros 16–19 · cara frontal (medias maderas)',H,63,'canto inferior','canto exterior',
      hs(DR,'U18',[(s+a,b) for s in sq for a,b in ((20,20),(43,43))]),pend='Altura H pendiente: medir riel comprado y recalcular (H/3, 2H/3).',count=4)
-U['uniones'].append({"id":"U26","piezas":[41,1,5],"tipo":"pocket","tornillo":"Pocket rosca gruesa #8 x 1-1/4\" (32 mm), cabeza de rondana","broca_guia":"Broca escalonada Kreg 3/8\" (plantilla y collar ajustados a 3/4\" / 18 mm)","broca_avellanado":None,"profundidad_mm":"según collar Kreg para 3/4\"","cantidad":6,"posiciones_mm":["3 por extremo: 60, 273.5 y 487 desde canto frontal","Cara inferior a 1035 del suelo (967 desde canto inferior de la división; 1035 en costado 01)"],"cara":"Cara inferior del entrepaño 41","paso_armado":"7 · Repisa, zapatera y entrepaño rigidizador","nota":"Cola PVA exterior. Rigidiza costado 01 y división a media altura."})
+U['uniones'].append({"id":"U26","piezas":[41,1,5],"tipo":"pocket","tornillo":"Pocket rosca gruesa #8 x 1-1/4\" (32 mm), cabeza de rondana","broca_guia":"Broca escalonada Kreg 3/8\" (plantilla y collar ajustados a 3/4\" / 18 mm)","broca_avellanado":None,"profundidad_mm":"según collar Kreg para 3/4\"","cantidad":6,"posiciones_mm":["3 por extremo: 60, 248.5 y 437 desde su canto frontal (entrepaño de 497)","Cara inferior a 1035 del suelo (967 desde canto inferior de la división; 1035 en costado 01)"],"cara":"Cara inferior del entrepaño 41","paso_armado":"7 · Repisa, zapatera y entrepaño rigidizador","nota":"Cola PVA exterior. Rigidiza costado 01 y división a media altura."})
 U_by={u['id']:u for u in U['uniones']}
 # uniones por paso
 steps={}
@@ -58,7 +58,7 @@ fix={'U15':{'tornillo':'#8 × 3/4″ (19 mm) cabeza plana — confirmar con fich
      'U18':{'tornillo':'#6 × 5/8″ (16 mm) cabeza plana'},'U19':{'tornillo':'#6 × 5/8″ (16 mm) cabeza plana'},
      'U06':{'posiciones_mm':['2 por extremo: 60 y 401 desde canto frontal (repisa de 461)','Cara superior a 1700 del suelo; se apoya contra el listón 15']},
      'U07':{'posiciones_mm':['2 por extremo: 60 y 271 desde canto frontal (zapatera de 331)','Cara superior a 270 del suelo']},
-     'U13':{'posiciones_mm':['Cara izquierda: soportes 30 y 31 a 270 del frente; 1832 y 912 desde canto inferior (=1900 y 980 del suelo)','Cara derecha: soporte 32 a 270 del frente; 1562 desde canto inferior (=1630 del suelo)']},
+     'U13':{'posiciones_mm':['Cara izquierda: soportes 30 y 31 a 217 del canto frontal de la división (= 270 del frente del mueble); 1832 y 912 desde canto inferior (=1900 y 980 del suelo)','Cara derecha: soporte 32 a 217 del canto frontal de la división (= 270 del frente del mueble); 1562 desde canto inferior (=1630 del suelo)']},
      'U14':{'posiciones_mm':['Soporte tubo 32: 270 desde canto frontal, 1630 desde canto inferior (centro del tubo)']},
      'U20':{'posiciones_mm':['A 31.5 del canto exterior (centro del bastidor), perímetro y 2 travesaños intermedios, cada 50']},
      'U01':{'posiciones_mm':['1 bolsillo por extremo de cada travesaño (461 mm), centrado a 25 del canto inferior']}}

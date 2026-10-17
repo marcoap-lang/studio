@@ -6,8 +6,8 @@ def add(n,letra,nom,L,W,T,mat,canto,nota,th):
 add(2,'A','Costado',2000,547,18,'Triplay pino 18 mm',1,'Soportes de tubo al centro del tubo, a 270 del frente (costado izq.: 1900 y 980; der.: 1630). Sin pocket en cara exterior.',[[0,0,18,2000],[1582,0,18,2000]])
 add(1,'B','Techo',1564,547,18,'Triplay pino 18 mm',1,'Pocket en cara superior: 4 por lado (60, 215, 370, 487 del frente). Los 3 de la división van en la división. Riel atornillado debajo, al frente.',[18,1982,1564,18])
 add(1,'C','Piso',1564,547,18,'Triplay pino 18 mm',1,'Pocket en cara inferior: 4 por lado (90, 230, 370, 487 del frente). Asienta sobre el zócalo.',[18,50,1564,18])
-add(1,'D','División central',1914,547,18,'Triplay pino 18 mm',1,'Centrada: 773 libres a cada lado. Pocket 3 arriba + 3 abajo en la cara derecha (60, 273.5, 487 del frente). Soportes de tubo: izq. 1900 y 980, der. 1630.',[791,68,18,1914])
-add(1,'E','Repisa superior der.',773,461,18,'Triplay pino 18 mm',1,'Cara superior a 1700 del piso. Fondo 461 (19 menos para librar el listón 15); se apoya contra el listón. Pocket 2 por lado en cara inferior (60 del frente y 60 de atrás).',[809,1682,773,18])
+add(1,'D','División central',1914,497,18,'Triplay pino 18 mm',1,'Centrada: 773 libres a cada lado. Fondo 497: canto trasero al ras de atrás y frente 53 mm detrás del frente del mueble, para librar el carril de las puertas. Pocket 3 arriba + 3 abajo en la cara derecha (60, 248.5, 437 de su canto frontal). Soportes de tubo a 217 de su canto frontal (= 270 del frente del mueble). Alturas: izq. 1900 y 980, der. 1630.',[791,68,18,1914])
+add(1,'E','Repisa superior der.',773,461,18,'Triplay pino 18 mm',1,'Cara superior a 1700 del piso. Fondo 461 (19 menos para librar el listón 15); se apoya contra el listón (frente 67 mm detrás del frente del mueble). Pocket 2 por lado en cara inferior (60 del frente y 60 de atrás).',[809,1682,773,18])
 add(1,'F','Zapatera der.',773,331,18,'Triplay pino 18 mm',1,'Cara superior a 270 del piso. Fondo 331 (19 menos para librar el listón 15). Pocket 2 por lado (60 del frente y 60 de atrás).',[809,252,773,18])
 add(1,'G','Zócalo frente',1564,50,18,'Triplay pino 18 mm',1,'Remetido 50 mm del frente.',[18,0,1564,50])
 add(1,'G','Zócalo atrás',1564,50,18,'Triplay pino 18 mm',0,'Al ras de atrás.',[18,0,1564,50])
@@ -34,14 +34,14 @@ jq('Yute · paneles bajo y alto, ambas puertas (×4)',572,716,1,'Yute sin tratar
 jq('Yute · panel medio, ambas puertas (×2)',604,716,1,'Yute sin tratar',YN,[[dx+63,68+OPN[1][0],676,OPN[1][1]-OPN[1][0]] for dx in (18,780)],l='Y')
 JNAMES={16:'Puerta A · larguero izq.',17:'Puerta A · larguero der.',18:'Puerta B · larguero izq.',19:'Puerta B · larguero der.',20:'Puerta A · travesaño inferior',21:'Puerta A · travesaño superior',22:'Puerta A · travesaño intermedio bajo',23:'Puerta A · travesaño intermedio alto',24:'Puerta B · travesaño inferior',25:'Puerta B · travesaño superior',26:'Puerta B · travesaño intermedio bajo',27:'Puerta B · travesaño intermedio alto',28:'Puerta A (frente) · tapa',29:'Puerta B (atrás) · tapa'}
 for k,v in JNAMES.items(): P[k-1]['n']=v
-add(1,'Q','Entrepaño rigidizador izq.',773,547,18,'Triplay pino 18 mm',1,'Fijo, sección izquierda. Cara inferior a 1035 del suelo (cara superior 1053): deja ~43 libres sobre el tubo de 980 para el gancho y ~847 bajo el tubo de 1900 para camisas. A media altura rigidiza costado 01 y división 05. Pocket 3 por lado en cara inferior (60, 273.5, 487 del frente). Pieza 41.',[18,1035,773,18])
+add(1,'Q','Entrepaño rigidizador izq.',773,497,18,'Triplay pino 18 mm',1,'Fijo, sección izquierda. Cara inferior a 1035 del suelo (cara superior 1053): deja ~43 libres sobre el tubo de 980 para el gancho y ~847 bajo el tubo de 1900 para camisas. A media altura rigidiza costado 01 y división 05. Fondo 497: al ras de atrás, frente 53 mm detrás del frente del mueble (libra el carril de las puertas). Pocket 3 por lado en cara inferior (60, 248.5, 437 de su canto frontal). Pieza 41.',[18,1035,773,18])
 K=3
 num=lambda l:[p['no'] for p in P if p['l']==l]
 A=num('A');J=num('J');Kk=num('K');Ll=num('L');I=num('I');N=num('N');H_=num('H');G=num('G')
 SHEETS=[
  dict(t='Hoja 1 · Triplay pino 18 mm',W=1220,H=2440,p=[(A[0],0,0,547,2000),(A[1],550,0,547,2000)]),
- dict(t='Hoja 2 · Triplay pino 18 mm',W=1220,H=2440,p=[(5,0,0,547,1914),(3,550,0,547,1564),(6,550,1567,461,773)]),
- dict(t='Hoja 3 · Triplay pino 18 mm',W=1220,H=2440,p=[(4,0,0,547,1564),(7,0,1567,331,773),(G[0],550,0,50,1564),(G[1],603,0,50,1564)]+[(h,656+53*i,0,50,461) for i,h in enumerate(H_)]+[(41,550,1567,547,773)]),
+ dict(t='Hoja 2 · Triplay pino 18 mm',W=1220,H=2440,p=[(5,0,0,497,1914),(3,550,0,547,1564),(6,550,1567,461,773)]),
+ dict(t='Hoja 3 · Triplay pino 18 mm',W=1220,H=2440,p=[(4,0,0,547,1564),(7,0,1567,331,773),(G[0],550,0,50,1564),(G[1],603,0,50,1564)]+[(h,656+53*i,0,50,461) for i,h in enumerate(H_)]+[(41,550,1567,497,773)]),
  dict(t='Hoja 4 · Triplay 6 mm',W=1220,H=2440,p=[(I[0],0,0,1220,1950)]),
  dict(t='Hoja 5 · Triplay 6 mm',W=1220,H=2440,p=[(I[1],0,0,380,1950)]),
  dict(t='Hoja 6 · Triplay 3 mm',W=1220,H=2440,p=[(Ll[0],0,0,802,H)]),

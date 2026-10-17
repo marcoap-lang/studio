@@ -6,7 +6,7 @@ const P=window.D.P;
 const DOORL='JKLNY';
 function box(no,rect){const p=P[no-1],[x,y,w,h]=rect||p.th;let z0=3,d=547;
  const L=p.l;
- if(L==='E'||L==='F'||L==='Q')d=p.W;
+ if(L==='E'||L==='F'){z0=22;d=p.W} if(L==='D'||L==='Q')d=p.W; // 05 y 41: 497, al ras de atrás
  if(no===8){z0=550-50-18;d=18} if(no===9){z0=3;d=18}
  if(L==='H'){z0=21;d=461}
  if(L==='I'){z0=-3;d=6}
