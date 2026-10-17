@@ -58,3 +58,5 @@ footer{padding:40px 0 60px;color:var(--mute);font-size:13px;border-top:1px solid
 .printonly{display:none}
 @media print{.top,.stage,.tabs,.btn,.stepnav,.dots,.noprint{display:none!important}.pane{display:block!important;break-before:page}body{background:#fff;font-size:12px}.card,.stat,.plate figure,.callouts li{break-inside:avoid}.printonly{display:block}section.blk{padding:18px 0}}
 .dtag{background:#1F2A2E;color:#fff;font:600 11px/1.2 Inter,system-ui,sans-serif;padding:4px 8px;border-radius:99px;white-space:nowrap}.dtagb{background:#6B7B78}.dtago{background:#D9502B}
+
+.photo{margin:14px 0 18px}.photo img{display:block;width:100%;height:auto;border-radius:14px;background:#DCE3DC}.photo figcaption{font-size:.8rem;color:#6B7B78;margin-top:6px}
