@@ -32,7 +32,7 @@ document.getElementById('printsteps').innerHTML=STEPS.map((s,i)=>`<div class="ca
 // Taller
 const TABS=[['mad','Maderería'],['pie','Piezas'],['com','Compras'],['aca','Acabado']];
 let m='';
-m+=`<div class="pane" data-s="mad"><div class="warn">⚠ <b>Piezas 16–19 y 28–29 (altura H): NO CORTAR</b> hasta comprar el riel. H = 1914 − descuento del riel según ficha (≈${H} orientativo).</div>
+m+=`<div class="pane" data-s="mad"><div class="warn">Puertas: H = ${H} mm (riel Ducloset Doble U-20) · tapas 28–29 caladas, sin junquillo.</div>
 <div class="grid g2" style="margin-bottom:14px">${LUMBER.map(l=>`<div class="card"><h3>${l[0]}</h3><div class="small">${l[1]}</div>${l[2]?`<a class="btn ${l[2].startsWith('https')?'wa':'ghost'}" style="margin-top:10px" href="${l[2]}" target="_blank" rel="noopener">${l[3]}</a>`:`<div class="small" style="margin-top:8px">${l[3]}</div>`}</div>`).join('')}</div>
 <a class="btn dark" href="ropero_tecnico.pdf" style="width:100%;margin-bottom:10px">Plano técnico (PDF) para la maderería</a><button class="btn wa" id="cp" onclick="copyWA()" style="width:100%;margin-bottom:10px">Copiar lista de corte para WhatsApp</button>
 <p class="small">Disco 4 mm entre cortes · refilado 5 mm por lado · rayado = desperdicio · <span class="c">rojo = cubrecanto</span> · escribir el número en cada pieza.</p>`;
