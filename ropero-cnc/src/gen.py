@@ -28,145 +28,171 @@ class Part:
         return g
 PARTS=[]
 # ---------- constantes (mm) ----------
-W,HT,DP=800,2000,550; SI=20  # costado remetido 20 mm (vuelo de techo/base)
+W,HT,DP=800,2000,550; SI=20  # costado remetido 20 mm (vuelo lateral de techo/base)
 YB0,YB1=100,118; YT0,YT1=1952,1970
-TC=[70,225,380]; TW=60; SD=450  # costados de 450: las puertas corren por delante, a todo el ancho
-KX=[200,600]; DOOR_W=806; DOOR_H=1816; DY=124
+TW=60; SDO=550; SDI=476      # costados exteriores 550 (las puertas corren entre ellos), centrales 476
+TCO=[70,275,480]; TCI=[70,240,410]
+BG=(6,12)                    # ranura del fondo, pegada atrás para ganar fondo útil
+RZ=476                       # riel: z 476-550 · ranura B 500-520 · ranura A 524-544
+XL,XR=SI+18,1600-SI-18       # caras interiores de los costados exteriores
+OPEN=XR-XL; DOOR_W=(OPEN+18)/2; DOOR_H=1810; DY=130
+KX=[400,1200]; ROD_Z=245
 SL=14; DRAW=1.5; SW=18+0.4
-def side(mod,x0,right,pockets):
+def side(mod,x0,right,pockets,outer):
+    sd,tc=(SDO,TCO) if outer else (SDI,TCI)
     pid=f'M{mod}-C{"D" if right else "I"}'
-    p=Part(pid,f'Costado {"derecho" if right else "izquierdo"} · módulo {mod}',18,mod,2,
+    p=Part(pid,f'Costado {"exterior" if outer else "central"} {"derecho" if right else "izquierdo"} · módulo {mod}',18,mod,2,
         dict(O=[x0+(W-SI-18 if right else SI),0,0],U=[0,0,1],V=[0,1,0],N=[1,0,0]))
-    p.body=box(0,YB1,SD,YT0)
-    for c in TC:
+    p.body=box(0,YB1,sd,YT0)
+    for c in tc:
         p.tn(c-TW/2,YB1-18-25-5,c+TW/2,YB1,'y1'); p.tn(c-TW/2,YT0,c+TW/2,YT0+18+30,'y0')
-        p.sub.append(dog_hole(c-SW/2,YB0-SL+DRAW,c+SW/2,YB0+DRAW))      # ranura de cuña inferior
-        p.sub.append(dog_hole(c-SW/2,YT1-DRAW,c+SW/2,YT1-DRAW+SL))      # ranura de cuña superior
-    p.pk.append(('RANURA_8MM',box(12,YB1,18,YT0),'Ranura del fondo 6 × 8 mm, cara interior'))
-    for kind,a in pockets:
+        p.sub.append(dog_hole(c-SW/2,YB0-SL+DRAW,c+SW/2,YB0+DRAW))
+        p.sub.append(dog_hole(c-SW/2,YT1-DRAW,c+SW/2,YT1-DRAW+SL))
+    p.pk.append(('RANURA_8MM',box(BG[0],YB1,BG[1],YT0),'Ranura del fondo 6 × 8 mm, cara interior'))
+    pk=list(pockets)
+    if outer: pk+=[('tab',(488,538,YB1,YB1+18)),('tab',(488,538,YT0-18,YT0))]
+    for kind,a in pk:
         if kind=='tab':
             u0,u1,v0,v1=a;p.pk.append(('CAJA_9_5MM',dog_hole(u0-TOL/2,v0-TOL/2,u1+TOL/2,v1+TOL/2),'Caja 9.5 mm, cara interior'))
         else:
             u,v=a;p.pk.append(('CAJA_9_5MM',Point(u,v).buffer(16.25,resolution=24),'Caja ⌀32.5 × 9.5 mm (tubo)'))
-    if right: # espejo: al cortar boca arriba, las cajas quedan en la cara interior
-        p.pk=[(l,affinity.scale(q,-1,1,origin=(SD/2,0)),d) for l,q,d in p.pk]
-    p.note='Espiga pasante con cuña arriba (sobresale 30 mm: remate) y abajo (dentro del zócalo).'
-    PARTS.append(p);return p
-def panel_tb(mod,x0,top):
+    if right: p.pk=[(l,affinity.scale(q,-1,1,origin=(sd/2,0)),d) for l,q,d in p.pk]
+    p.note=('Costado exterior de 55 cm: las puertas corren entre los dos costados exteriores; cajas para las pestañas de los rieles al frente. ' if outer else 'Costado central de 47.6 cm: termina antes de los rieles para que las puertas pasen por delante. ')+'Espiga pasante con cuña arriba (remate visible) y abajo (dentro del zócalo).'
+    p.tc=tc;PARTS.append(p);return p
+def panel_tb(mod,x0,top,sides):
     pid=f'M{mod}-{"T" if top else "B"}'
     p=Part(pid,('Techo' if top else 'Base')+f' · módulo {mod}',18,mod,4 if top else 3,
         dict(O=[x0,YT0 if top else YB0,0],U=[1,0,0],V=[0,0,1],N=[0,1,0]))
-    p.body=rbox(0,0,W,DP,0); p.body=p.body.difference(box(0,DP-20,20,DP)).union(Point(20,DP-20).buffer(20,resolution=16).intersection(box(0,DP-20,20,DP))) if False else rbox(0,0,W,DP,0)
-    # esquinas frontales redondeadas R20
-    fr=unary_union([box(0,0,W,DP-20),box(20,0,W-20,DP),Point(20,DP-20).buffer(20,resolution=16),Point(W-20,DP-20).buffer(20,resolution=16)])
-    p.body=fr
-    for xs in (SI,W-SI-18):
-        for c in TC: p.sub.append(dog_hole(xs-TOL/2,c-TW/2-TOL/2,xs+18+TOL/2,c+TW/2+TOL/2))
-    p.pk.append(('RANURA_8MM',box(SI+2,12,W-SI-2,18),'Ranura del fondo 6 × 8 mm, cara '+('inferior' if top else 'superior')))
+    p.body=unary_union([box(0,0,W,DP-20),box(20,0,W-20,DP),Point(20,DP-20).buffer(20,resolution=16),Point(W-20,DP-20).buffer(20,resolution=16)])
+    for xs,tc in ((SI,sides[0]),(W-SI-18,sides[1])):
+        for c in tc: p.sub.append(dog_hole(xs-TOL/2,c-TW/2-TOL/2,xs+18+TOL/2,c+TW/2+TOL/2))
+    p.pk.append(('RANURA_8MM',box(SI+2,BG[0],W-SI-2,BG[1]),'Ranura del fondo 6 × 8 mm, cara '+('inferior' if top else 'superior')))
     if top:
-        for xc in KX: p.sub.append(dog_hole(xc-TW/2-TOL/2,SD-TOL/2,xc+TW/2+TOL/2,SD+18+TOL/2))
-    else:
-        p.pk.append(('CAJA_6MM',p.body.intersection(box(-1,440-TOL,W+1,DP+1)),'Rebaje 6 mm, cara superior: asiento del riel inferior continuo'))
-    if top:  # medias cajas de mariposa en la unión de módulos
+        p.sub.append(dog_hole(400-TW/2-TOL/2,RZ+2-TOL/2,400+TW/2+TOL/2,RZ+20+TOL/2))
         xe=W if mod==1 else 0
         for z in (120,430):
             bt=Polygon([(0,-12.5),(-60,-25),(-60,25),(0,12.5)]) if mod==1 else Polygon([(0,-12.5),(60,-25),(60,25),(0,12.5)])
-            bt=affinity.translate(bt,xe,z).buffer(0.15,join_style=2)
-            p.pk.append(('CAJA_5_5MM',bt,'Media caja de mariposa 5.5 mm, cara superior'))
+            p.pk.append(('CAJA_5_5MM',affinity.translate(bt,xe,z).buffer(0.15,join_style=2),'Media caja de mariposa 5.5 mm, cara superior'))
     PARTS.append(p);return p
-def inner(mod,x0,pid,name,y,v0,v1,tabs,step,grooves=None,gface=None):
+def inner(mod,x0,pid,name,y,v0,v1,tabs,step):
     p=Part(pid,name,18,mod,step,dict(O=[x0+SI+18-9,y,0],U=[1,0,0],V=[0,0,1],N=[0,1,0]))
     L=W-2*SI-36; p.body=box(9,v0,9+L,v1)
     for a,b in tabs: p.tn(0,a,9,b,'x1'); p.tn(9+L,a,18+L,b,'x0')
-    for g in (grooves or []): p.pk.append((g[2],box(9,g[0],9+L,g[1]),gface))
     PARTS.append(p);return p
-# ---------- módulos ----------
 def module(mod,x0,kind):
     pk=[]
     if kind=='larga':
-        pk+=[('tab',(80,160,1650,1668)),('tab',(300,380,1650,1668)),('rod',(234,1590)),
-             ('tab',(60,120,260,278)),('tab',(350,410,170,188))]
+        pk+=[('tab',(80,160,1650,1668)),('tab',(320,400,1650,1668)),('rod',(ROD_Z,1590)),('tab',(60,120,260,278)),('tab',(370,430,170,188))]
     else:
-        pk+=[('rod',(234,1840)),('rod',(234,1000))]
-    side(mod,x0,False,pk); side(mod,x0,True,pk)
-    panel_tb(mod,x0,False); panel_tb(mod,x0,True)
+        pk+=[('rod',(ROD_Z,1840)),('rod',(ROD_Z,1000))]
+    a=side(mod,x0,False,pk,mod==1); b=side(mod,x0,True,pk,mod==2)
+    panel_tb(mod,x0,False,(a.tc,b.tc)); panel_tb(mod,x0,True,(a.tc,b.tc))
     if kind=='larga':
-        inner(mod,x0,f'M{mod}-E','Entrepaño sombrerero · módulo '+str(mod),1650,20,445,[(80,160),(300,380)],2)
+        inner(mod,x0,f'M{mod}-E','Entrepaño sombrerero · módulo '+str(mod),1650,20,465,[(80,160),(320,400)],2)
         inner(mod,x0,f'M{mod}-Z1','Listón zapatera trasero · módulo '+str(mod),260,40,140,[(60,120)],2)
-        inner(mod,x0,f'M{mod}-Z2','Listón zapatera frontal · módulo '+str(mod),170,330,430,[(350,410)],2)
-    # fondo 5 mm
-    b=Part(f'M{mod}-F','Fondo 5 mm · módulo '+str(mod),5,mod,4,dict(O=[x0+SI+10,YB1-8,12],U=[1,0,0],V=[0,1,0],N=[0,0,1]))
+        inner(mod,x0,f'M{mod}-Z2','Listón zapatera frontal · módulo '+str(mod),170,350,450,[(370,430)],2)
+    b=Part(f'M{mod}-F','Fondo 5 mm · módulo '+str(mod),5,mod,4,dict(O=[x0+SI+10,YB1-8,BG[0]+0.5],U=[1,0,0],V=[0,1,0],N=[0,0,1]))
     b.body=box(0,0,W-2*SI-20,YT0-YB1+16);PARTS.append(b)
-    # zócalo
     for i,xc in enumerate((100,682)):
         c=Part(f'M{mod}-X{i+1}','Travesaño de zócalo · módulo '+str(mod),18,mod,1,dict(O=[x0+xc,0,0],U=[0,0,1],V=[0,1,0],N=[1,0,0]),group=f'M{mod}-X')
-        c.body=unary_union([box(20,0,520,100)])
-        c.body=rbox(20,0,520,100,0)
+        c.body=box(20,0,520,100)
         for zr in (30,482): c.sub.append(dog_hole(zr-TOL/2,20-TOL/2,zr+18+TOL/2,80+TOL/2))
         PARTS.append(c)
     for i,zr in enumerate((30,482)):
-        r=Part(f'M{mod}-L{i+1}',('Larguero de zócalo trasero' if i==0 else 'Larguero de zócalo frontal')+' · módulo '+str(mod),18,mod,1,dict(O=[x0,0,zr],U=[1,0,0],V=[0,1,0],N=[0,0,1]),group=f'M{mod}-L')
+        r=Part(f'M{mod}-L{i+1}','Larguero de zócalo · módulo '+str(mod),18,mod,1,dict(O=[x0,0,zr],U=[1,0,0],V=[0,1,0],N=[0,0,1]),group=f'M{mod}-L')
         r.body=box(118,0,682,100); r.tn(75,20,118,80,'x1'); r.tn(682,20,725,80,'x0')
         r.sub.append(dog_hole(100-SL+DRAW,50-SW/2,100+DRAW,50+SW/2)); r.sub.append(dog_hole(700-DRAW,50-SW/2,700-DRAW+SL,50+SW/2))
         PARTS.append(r)
 module(1,0,'larga');module(2,800,'corta')
-# ---------- rieles continuos de 1.60 m (una pieza cada uno: caben a lo largo de la hoja de 2.44 m) ----------
-def rail(pid,name,y,grooves,gl,gface,keys):
-    p=Part(pid,name,18,0,6,dict(O=[0,y,0],U=[1,0,0],V=[0,0,1],N=[0,1,0]))
-    p.body=unary_union([box(0,440,1600,DP-20),box(20,440,1580,DP),Point(20,DP-20).buffer(20,resolution=16),Point(1580,DP-20).buffer(20,resolution=16)])
-    for zc in (500,530): p.pk.append((gl,box(13,zc,1587,zc).buffer(10,resolution=16),gface))
+# ---------- rieles de una pieza entre costados exteriores ----------
+def rail(pid,name,y,gl,gface,keys):
+    p=Part(pid,name,18,0,6,dict(O=[XL-9,y,0],U=[1,0,0],V=[0,0,1],N=[0,1,0]))
+    p.body=box(9,RZ,9+OPEN,DP); p.tn(0,488,9,538,'x1'); p.tn(9+OPEN,488,18+OPEN,538,'x0')
+    for z0 in (500,524): p.pk.append((gl,box(9,z0,9+OPEN,z0+20),gface))
     if keys:
-        for xc in [k for k in KX]+[800+k for k in KX]: p.sub.append(dog_hole(xc-TW/2-TOL/2,SD-TOL/2,xc+TW/2+TOL/2,SD+18+TOL/2))
+        for xc in KX: p.sub.append(dog_hole(xc-(XL-9)-TW/2-TOL/2,RZ+2-TOL/2,xc-(XL-9)+TW/2+TOL/2,RZ+20+TOL/2))
+    p.note='Una sola pieza de %.0f mm (cabe a lo largo de la hoja). Pestañas de 9 mm en las cajas de los costados exteriores.'%(OPEN+18)
     PARTS.append(p)
-rail('RI','Riel inferior continuo (1.60 m)',DY-12,0,'RANURA_6MM','2 ranuras 20 × 6 mm detenidas, cara superior',False)
-rail('RS','Riel superior continuo (1.60 m)',YT0-18,0,'RANURA_14MM','2 ranuras 20 × 14 mm detenidas, cara inferior',True)
-# llaves colgantes: pasan por riel superior y techo, cabeza bajo el riel, cuña arriba
+rail('RI','Riel inferior (una pieza)',YB1,'RANURA_6MM','2 ranuras 20 × 6 mm, cara superior',False)
+rail('RS','Riel superior (una pieza)',YT0-18,'RANURA_14MM','2 ranuras 20 × 14 mm, cara inferior',True)
 KEYS=[]
-for xc in [k for k in KX]+[800+k for k in KX]:
-    p=Part(f'LL{len(KEYS)+1}','Llave colgante del riel superior',18,0,6,dict(O=[xc,0,SD],U=[1,0,0],V=[0,1,0],N=[0,0,1]),group='LL')
+for xc in KX:
+    p=Part(f'LL{len(KEYS)+1}','Llave colgante del riel superior',18,0,6,dict(O=[xc,0,RZ+2],U=[1,0,0],V=[0,1,0],N=[0,0,1]),group='LL')
     p.body=box(-50,YT0-36,50,YT0-18); p.tn(-TW/2,YT0-18,TW/2,YT1+30,'y0')
     p.sub.append(dog_hole(-SW/2,YT1-DRAW,SW/2,YT1-DRAW+SL)); PARTS.append(p); KEYS.append(xc)
-# puertas grandes a todo el ancho
-COLS=[(80,368),(438,726)];ROWS=[(160,610),(700,1700)]
-for k,(x,z) in enumerate(((3,521),(1600-3-DOOR_W,491))):
-    d=Part(f'P{"AB"[k]}',f'Puerta corrediza {"frontal (izquierda)" if k==0 else "trasera (derecha)"}',18,0,7,dict(O=[x,DY,z],U=[1,0,0],V=[0,1,0],N=[0,0,1]),group='P')
-    d.body=rbox(0,0,DOOR_W,DOOR_H,6)
-    for c0,c1 in COLS:
-        for a,b2 in ROWS:
-            d.sub.append(rbox(c0,a,c1,b2,40))
-            d.pk.append(('CAJA_6MM',rbox(c0-10,a-10,c1+10,b2+10,50).difference(rbox(c0,a,c1,b2,40)),'Rebaje 10 × 6 mm, cara trasera (asiento del panel de yute)'))
-    hx=40 if k==0 else DOOR_W-40
-    d.sub.append(unary_union([box(hx-14,845,hx+14,1015),Point(hx,845).buffer(14,resolution=24),Point(hx,1015).buffer(14,resolution=24)]))
-    PARTS.append(d)
-    for ci,(c0,c1) in enumerate(COLS):
+# ---------- puertas de bastidor (largueros, travesaños y parteluz con cola de milano en el plano) ----------
+ST,MU=80,70; TR=[(0,160),(610,700),(1700,DOOR_H)]; ROWS=[(160,610),(700,1700)]
+DTL,DT0,DT1=20,40,52   # cola: largo 20, ancho 40 en la raíz y 52 en la punta
+def dt_tab(xr,yc,dirx):   # cola que sale de un canto vertical en x=xr hacia dirx
+    return Polygon([(xr,yc-DT0/2),(xr+dirx*DTL,yc-DT1/2),(xr+dirx*DTL,yc+DT1/2),(xr,yc+DT0/2)])
+def dt_tab_v(yr,xc,diry):
+    return Polygon([(xc-DT0/2,yr),(xc-DT1/2,yr+diry*DTL),(xc+DT1/2,yr+diry*DTL),(xc+DT0/2,yr)])
+def socket(tab,dirv):
+    s=tab.buffer(0.15,join_style=2);b=tab.bounds
+    return s
+WIN=[]
+for k,(x,z) in enumerate(((XL,525),(XR-DOOR_W,501))):
+    Wd=DOOR_W;mx=Wd/2
+    cols=[(ST,mx-MU/2),(mx+MU/2,Wd-ST)]
+    rb=unary_union([box(c0-10,a-10,c1+10,b2+10).difference(box(c0,a,c1,b2)) for c0,c1 in cols for a,b2 in ROWS])
+    pose=dict(O=[x,DY,z],U=[1,0,0],V=[0,1,0],N=[0,0,1]);tag="AB"[k];dn='izquierda, carril frontal' if k==0 else 'derecha, carril trasero'
+    tabs_st=[]
+    trs=[]
+    for i,(a,b2) in enumerate(TR):
+        yc=(a+b2)/2;t=Part(f'P{tag}-T{i+1}',f'Travesaño {["inferior","central","superior"][i]} · puerta {dn}',18,0,7,pose,group=f'PT{i+1}')
+        t.body=box(ST,a,Wd-ST,b2);t.add+=[dt_tab(ST,yc,-1),dt_tab(Wd-ST,yc,1)];tabs_st+=[dt_tab(ST,yc,-1),dt_tab(Wd-ST,yc,1)]
+        trs.append(t)
+    for j,(a,b2) in enumerate(ROWS):
+        m=Part(f'P{tag}-M{j+1}',f'Parteluz {["inferior","superior"][j]} · puerta {dn}',18,0,7,pose,group=f'PM{j+1}')
+        m.body=box(mx-MU/2,a,mx+MU/2,b2);ta,tb=dt_tab_v(a,mx,-1),dt_tab_v(b2,mx,1);m.add+=[ta,tb]
+        trs[j].sub.append(ta.buffer(0.15,join_style=2));trs[j+1].sub.append(tb.buffer(0.15,join_style=2))
+        for P_ in (trs[j],trs[j+1]):
+            for tt in (ta,tb):
+                for cx,cy in list(tt.exterior.coords)[1:3]: P_.sub.append(Point(cx,cy).buffer(3,resolution=12))
+        m.pk.append(('CAJA_6MM',m.body.intersection(rb),'Rebaje 10 × 6 mm, cara trasera'));PARTS.append(m)
+    for i,(u0,u1) in enumerate(((0,ST),(Wd-ST,Wd))):
+        s=Part(f'P{tag}-L{i+1}',f'Larguero {["izquierdo","derecho"][i]} · puerta {dn}',18,0,7,pose,group='PL')
+        s.body=box(u0,0,u1,DOOR_H)
+        for tt in tabs_st:
+            if (tt.bounds[0]<u1 and tt.bounds[2]>u0):
+                s.sub.append(tt.buffer(0.15,join_style=2))
+                for cx,cy in list(tt.exterior.coords)[1:3]: s.sub.append(Point(cx,cy).buffer(3,resolution=12))
+        outer_edge=(k==0 and i==0) or (k==1 and i==1)
+        if outer_edge:
+            hx=(u0+u1)/2;s.sub.append(unary_union([box(hx-14,845,hx+14,1015),Point(hx,845).buffer(14,resolution=24),Point(hx,1015).buffer(14,resolution=24)]))
+            s.note='Lleva la jaladera calada de 28 × 198 mm.'
+        s.pk.append(('CAJA_6MM',s.body.intersection(rb),'Rebaje 10 × 6 mm, cara trasera'));PARTS.append(s)
+    for t in trs:
+        t.pk.append(('CAJA_6MM',t.body.intersection(rb),'Rebaje 10 × 6 mm, cara trasera'));t.note='Cola de milano en cada extremo: entra de canto en el larguero, con Resistol.';PARTS.append(t)
+    for ci,(c0,c1) in enumerate(cols):
         for j,(a,b2) in enumerate(ROWS):
-            ins=Part(f'Y{"AB"[k]}{ci+1}{j+1}',f'Panel de yute {"inferior" if j==0 else "superior"}',5,0,7,dict(O=[x+c0-10,DY+a-10,z+1],U=[1,0,0],V=[0,1,0],N=[0,0,1]),group='Y'+str(j+1))
-            ins.body=rbox(0,0,c1-c0+20,b2-a+20,50);ins.jute=True;PARTS.append(ins)
-# cuñas (3D + corte)
+            ins=Part(f'Y{tag}{ci+1}{j+1}',f'Panel de yute {"inferior" if j==0 else "superior"}',5,0,7,dict(O=[x+c0-9.5,DY+a-9.5,z+1],U=[1,0,0],V=[0,1,0],N=[0,0,1]),group='Y'+str(j+1))
+            ins.body=rbox(0,0,c1-c0+19,b2-a+19,3);ins.jute=True;PARTS.append(ins)
+# ---------- cuñas ----------
 WEDGE=Polygon([(0,0),(80,0),(80,18),(0,10)])
 wedges=[]
+for p in [q for q in PARTS if q.id.startswith('M') and '-C' in q.id]:
+    right=p.id.endswith('D');x0=800 if p.mod==2 else 0
+    xo=x0+(W-5 if right else 5); ux=-1 if right else 1
+    for c in p.tc:
+        wedges.append(dict(O=[xo,YT1,c-9],U=[ux,0,0],V=[0,1,0],N=[0,0,1],step=4,mod=p.mod))
+        wedges.append(dict(O=[xo,YB0,c-9],U=[ux,0,0],V=[0,-1,0],N=[0,0,1],step=3,mod=p.mod))
 for mod,x0 in ((1,0),(2,800)):
-    for right in (False,True):
-        xo=x0+(W-5 if right else 5); ux=-1 if right else 1
-        for c in TC:
-            wedges.append(dict(O=[xo,YT1,c-9],U=[ux,0,0],V=[0,1,0],N=[0,0,1],step=4,mod=mod))
-            wedges.append(dict(O=[xo,YB0,c-9],U=[ux,0,0],V=[0,-1,0],N=[0,0,1],step=3,mod=mod))
     for xc,ux in ((100,-1),(700,1)):
         for zr in (30,482):
             wedges.append(dict(O=[x0+xc,41,zr+9-30],U=[0,0,1],V=[ux,0,0],N=[0,1,0],step=1,mod=mod))
-for xc in KEYS: wedges.append(dict(O=[xc+9,YT1,SD+9-31.25],U=[0,0,1],V=[0,1,0],N=[-1,0,0],step=6,mod=0))
+for xc in KEYS: wedges.append(dict(O=[xc+9,YT1,RZ+11-31.25],U=[0,0,1],V=[0,1,0],N=[-1,0,0],step=6,mod=0))
 for i,w in enumerate(wedges):
     p=Part(f'CU{i+1:02d}','Cuña',18,w['mod'],w['step'],dict(O=w['O'],U=w['U'],V=w['V'],N=w['N']),group='CU');p.body=WEDGE;PARTS.append(p)
-for i in range(4):  # cuñas de repuesto
+for i in range(4):
     p=Part(f'CU{len(wedges)+i+1:02d}','Cuña (repuesto)',18,0,None,None,group='CU');p.body=WEDGE;PARTS.append(p)
-# mariposas (5 mm) y taravillas (5 mm)
 BOW=unary_union([Polygon([(0,-12.5),(60,-25),(60,25),(0,12.5)]),Polygon([(0,-12.5),(-60,-25),(-60,25),(0,12.5)])])
 BOW=affinity.translate(BOW,60,25)
 for i,z in enumerate((120,430)):
-    p=Part(f'MA{i+1}','Mariposa de unión entre módulos',5,0,5,dict(O=[800-60,YT1-5.5+5,z-25],U=[1,0,0],V=[0,0,1],N=[0,1,0]),group='MA');p.body=BOW;PARTS.append(p)
+    p=Part(f'MA{i+1}','Mariposa de unión entre módulos',5,0,6,dict(O=[800-60,YT1-5.5+5,z-25],U=[1,0,0],V=[0,0,1],N=[0,1,0]),group='MA');p.body=BOW;PARTS.append(p)
 TARA=rbox(0,0,44,16,8).difference(Point(8,8).buffer(3.1,resolution=16))
 for i in range(32):
-    p=Part(f'TA{i+1:02d}','Taravilla (gira a mano y sujeta el panel de yute)',5,0,6,None,group='TA');p.body=TARA;PARTS.append(p)
+    p=Part(f'TA{i+1:02d}','Taravilla (gira a mano y sujeta el panel de yute)',5,0,7,None,group='TA');p.body=TARA;PARTS.append(p)
 for p in PARTS: p.g=p.geom()
 # ---------- anidado ----------
 SHW,SHH,MAR,GAP=1220,2440,10,12
@@ -279,7 +305,7 @@ def part_svg(p):
 def holes_desc(p):
     n=len([1 for pg in polys(p.g) for h in pg.interiors]);return n
 groups={}
-GN={'M1-X':'Travesaño de zócalo · módulo 1','M2-X':'Travesaño de zócalo · módulo 2','M1-L':'Larguero de zócalo (trasero y frontal) · módulo 1','M2-L':'Larguero de zócalo (trasero y frontal) · módulo 2','Y1':'Panel de yute inferior (removible)','Y2':'Panel de yute superior (removible)','CU':'Cuña (incluye 4 de repuesto)','LL':'Llave colgante del riel superior','P':'Puerta corrediza 806 mm'}
+GN={'M1-X':'Travesaño de zócalo · módulo 1','M2-X':'Travesaño de zócalo · módulo 2','M1-L':'Larguero de zócalo (trasero y frontal) · módulo 1','M2-L':'Larguero de zócalo (trasero y frontal) · módulo 2','Y1':'Panel de yute inferior (removible)','Y2':'Panel de yute superior (removible)','CU':'Cuña (incluye 4 de repuesto)','LL':'Llave colgante del riel superior','PL':'Larguero de puerta (bastidor)','PT1':'Travesaño inferior de puerta','PT2':'Travesaño central de puerta','PT3':'Travesaño superior de puerta','PM1':'Parteluz inferior de puerta','PM2':'Parteluz superior de puerta'}
 for p in PARTS:
     groups.setdefault(p.group,[]).append(p)
 cut=[]
@@ -293,9 +319,9 @@ def poly_js(g):
     for pg in polys(g):
         out.append([[ [round(x,1),round(y,1)] for x,y in pg.exterior.coords[:-1]]]+[[ [round(x,1),round(y,1)] for x,y in h.coords[:-1]] for h in pg.interiors])
     return out
-rods=[dict(mod=1,x=SI+18,y=1590,z=234),dict(mod=2,x=800+SI+18,y=1840,z=234),dict(mod=2,x=800+SI+18,y=1000,z=234)]
+rods=[dict(mod=1,x=SI+18,y=1590,z=ROD_Z),dict(mod=2,x=800+SI+18,y=1840,z=ROD_Z),dict(mod=2,x=800+SI+18,y=1000,z=ROD_Z)]
 m3d=[dict(id=p.id,g=p.group,name=p.name,t=p.t,step=p.step,pose=p.pose,shape=poly_js(p.g),jute=getattr(p,'jute',False)) for p in PARTS if p.pose]
 n18=len([s for s in sheets if s['t']==18]);n5=len(sheets)-n18
-stats=dict(sheets18=n18,sheets5=n5,pieces=len(PARTS),pieces_main=len([p for p in PARTS if p.group not in('CU','TA','MA')]),wedges=len(groups['CU']),cut_m=round(cut_len/1000,1),pk_m2=round(pk_area/1e6,3),gr_m=round(gr_len/1000,1))
+stats=dict(sheets18=n18,sheets5=n5,pieces=len(PARTS),pieces_main=len([p for p in PARTS if p.group not in('CU','TA','MA','LL')]),door_w=round(DOOR_W,1),open_w=round(OPEN-DOOR_W,1),depth_use=round(501-BG[1]),door_h=DOOR_H,wedges=len(groups['CU']),cut_m=round(cut_len/1000,1),pk_m2=round(pk_area/1e6,3),gr_m=round(gr_len/1000,1))
 json.dump(dict(rods=rods,rodL=W-2*SI-36+18,stats=stats,cut=cut,m3d=m3d,sheets=sheet_svgs,sheetinfo=[dict(t=s['t'],n=len(s['items']),use=round(sum(i['g'].area for i in s['items'])/(SHW*SHH)*100)) for s in sheets]),open(f'{OUT}/data.json','w'),ensure_ascii=False)
 print(stats,[ (s['t'],len(s['items'])) for s in sheets])
