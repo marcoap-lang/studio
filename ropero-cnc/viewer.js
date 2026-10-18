@@ -29,7 +29,7 @@ export function viewer(el,M,opt={}){
  const edgeM=new THREE.LineBasicMaterial({color:0x5A3415,transparent:true,opacity:.35});const groups={};const all=[];
  for(const p of M.m3d){const shapes=p.shape.map(poly=>{const s=new THREE.Shape(poly[0].map(([x,y])=>new THREE.Vector2(x,y)));poly.slice(1).forEach(h=>s.holes.push(new THREE.Path(h.map(([x,y])=>new THREE.Vector2(x,y)))));return s});
   const geo=new THREE.ExtrudeGeometry(shapes,{depth:p.t,bevelEnabled:false,curveSegments:16});
-  const k=p.jute?'j':p.g==='CU'||p.g==='MA'?'w':String(p.t===5?5:18);const m=new THREE.Mesh(geo,mat(k).clone());m.userData.k=k;
+  const k=p.jute?'j':p.g==='CU'||p.g==='MA'||p.g==='LL'?'w':String(p.t===5?5:18);const m=new THREE.Mesh(geo,mat(k).clone());m.userData.k=k;
   const P=p.pose,U=new THREE.Vector3(...P.U),V=new THREE.Vector3(...P.V),N=new THREE.Vector3(...P.N);
   m.matrixAutoUpdate=false;m.matrix.makeBasis(U,V,N).setPosition(...P.O);m.castShadow=m.receiveShadow=true;
   m.material.side=THREE.DoubleSide;m.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo,30),edgeM));m.userData.step=p.step;sc.add(m);all.push(m)}
