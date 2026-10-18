@@ -1,0 +1,3 @@
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0}#v{width:1200px;height:1500px}</style>
+<script type="importmap">{"imports":{"three":"../vendor/three.module.js"}}</script></head><body><div id="v"></div>
+<script type="module">import {viewer} from './viewer.js';const M=await (await fetch('data.json')).json();viewer(document.getElementById('v'),M,{render:true});setTimeout(()=>document.title='ready',2500)</script></body></html>

@@ -1,0 +1,54 @@
+<!doctype html><html lang="es-MX"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ropero CNC · Strate Studio</title><meta name="description" content="Ropero de 1.60 × 2.00 × 0.55 m en dos módulos, cortado en router CNC y armado sin pijas ni herrajes: espiga pasante con cuña.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Crect width=%2216%22 height=%2216%22 rx=%224%22 fill=%22%23D9502B%22/%3E%3C/svg%3E"><meta name="theme-color" content="#F4F3EE"><link rel="stylesheet" href="../fonts/fonts.css"><link rel="stylesheet" href="../ropero/style.css">
+<script type="importmap">{"imports":{"three":"../vendor/three.module.js"}}</script>
+<style>.sheet{width:100%;height:auto;background:#fff;border-radius:10px}.sheets{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.imp li{margin:6px 0}.pl{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}.pl button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 10px;font:inherit;font-size:13px;cursor:pointer}.pl button.on{background:var(--ink);color:#fff}
+.hero-img{width:100%;border-radius:var(--r);display:block}table.list td,table.list th{padding:6px 8px;text-align:left;border-bottom:1px solid var(--line)}</style>
+</head><body>
+<header class="top"><div class="in"><a class="brand" href="../">Strate <span>Studio</span></a><nav><a href="#mejoras">Diseño</a><a href="#despiece">Despiece</a><a href="#corte">Corte</a><a href="#armado">Armado</a></nav></div></header>
+<main class="wrap">
+<section class="hero"><p class="eyebrow">Proyecto 05 · Recámara · Producto</p><h1>Ropero CNC</h1>
+<p class="lead">160 × 200 × 55 cm en dos módulos de 80 cm. Se corta completo en router CNC, viaja en empaque plano y se arma a mano, sin pijas ni herrajes: cada unión es una espiga pasante que se aprieta con una cuña de madera.</p>
+<div class="chips"><span class="chip">Triplay de pino 18 y 5 mm</span><span class="chip">Espiga y cuña, desarmable</span><span class="chip">Puertas corredizas sin rieles metálicos</span><span class="chip">Yute intercambiable</span><span class="chip">Cera de abeja</span></div>
+<img class="hero-img" src="render_hero.jpg" alt="Ropero CNC de triplay de pino en tono miel con puertas corredizas de yute" style="margin-top:20px">
+<p class="eyebrow" style="margin-top:22px">Modelo 3D</p><div class="stage" id="hero" style="height:560px"><span class="hint">Gira con el dedo · pellizca para acercar</span></div></section>
+<section class="blk" id="mejoras"><p class="eyebrow">Diseño</p><h2>Qué cambió respecto al ropero de pocket holes</h2>
+<div class="card"><ul class="imp">
+<li><b>Cero pijas, cero herrajes de unión.</b> 12 espigas pasantes por módulo en techo y base, más 4 en el zócalo, todas apretadas con cuñas de madera de 80 × 10→18 mm. Se arma y se desarma a mano.</li>
+<li><b>Las cuñas son el detalle.</b> Arriba, las espigas sobresalen 30 mm sobre el techo y forman un remate de cuñas a la vista. Abajo quedan escondidas dentro del zócalo.</li>
+<li><b>Techo y base con vuelo de 20 mm</b> y esquinas frontales redondeadas R20. El costado queda remetido y da una línea de sombra limpia.</li>
+<li><b>Zócalo remetido 50 mm</b>, armado también con espiga y cuña: el ropero parece flotar.</li>
+<li><b>Puertas corredizas que corren en ranuras de madera</b> fresadas en los rieles (20 × 6 mm abajo, 20 × 14 mm arriba). Se levantan y se meten sin herramienta. Sin rieles ni ruedas metálicas.</li>
+<li><b>Jaladera calada</b> de 28 × 198 mm en la propia puerta. No lleva jaladera comprada.</li>
+<li><b>Dos ventanas por puerta</b> (alta de 1000 y baja de 450 mm, R40), proporción cercana a 2:1, con un travesaño a la altura de la mano.</li>
+<li><b>Yute intercambiable.</b> Cada ventana lleva un panel de 5 mm forrado de yute que se asienta en un rebaje trasero y se sujeta con 4 taravillas de madera que giran a mano. Se puede cambiar por ratán, lino o tela.</li>
+<li><b>Interior útil.</b> Módulo 1 (ropa larga): entrepaño sombrerero, tubo de madera a 1.59 m y zapatera inclinada de dos listones. Módulo 2 (ropa corta): dos tubos, a 1.84 m y a 1.00 m.</li>
+<li><b>Mariposas de madera</b> unen los dos techos y amarran los módulos entre sí.</li>
+<li><b>Canto de triplay a la vista</b>, lijado y encerado, en vez de cubrecanto. Se ven las capas y queda con un acabado de taller de diseño.</li>
+</ul>
+<p class="small" style="margin-bottom:0">Tolerancias para el taller: mortaja +0.3 mm sobre la espiga, cajas de 9.5 mm para pestañas de 9 mm, ranura de cuña 18.4 × 14 mm con 1.5 mm de tiro, fresa de 6 mm con dog-bones en todas las esquinas interiores. Antes de cortar todo, corta la hoja del calibrador (plantilla 2) en un pedazo del mismo triplay: el grosor real del triplay varía entre 17.4 y 18.3 mm.</p></div></section>
+<section class="blk" id="resumen"><p class="eyebrow">Resumen</p><h2>Lo que vas a construir</h2><div class="grid g4" style="margin-top:16px" id="stats"></div></section>
+<section class="blk" id="presupuesto"><p class="eyebrow">Presupuesto</p><h2>≈ <span id="tot"></span> MXN</h2>
+<p class="small">Estimaciones en MXN, octubre 2026. El triplay se calcula por hoja completa. El corte CNC está estimado con una tarifa pública de $7 por minuto más $70 de arranque por hoja: hay que cotizarlo con el taller.</p>
+<div class="card" style="margin-top:14px;overflow-x:auto"><table id="budget" style="width:100%"></table></div></section>
+<section class="blk" id="despiece"><p class="eyebrow">Despiece</p><h2>Piezas numeradas</h2>
+<div class="card"><div class="row" style="justify-content:space-between;flex-wrap:wrap;gap:8px"><span class="small">Medidas exteriores de cada pieza, con espigas y pestañas incluidas.</span><button class="btn" id="copy">Copiar despiece</button></div>
+<div style="overflow-x:auto"><table class="list" style="width:100%;font-size:14px" id="pieces"></table></div></div>
+<h3 style="margin-top:26px">Hoja de detalle por pieza</h3><div class="pl" id="plist"></div><div class="card" id="pdet"></div></section>
+<section class="blk" id="corte"><p class="eyebrow">Corte CNC</p><h2>Diagramas de corte por hoja</h2>
+<p class="small">Hojas de 1220 × 2440 mm, 10 mm de margen y 12 mm entre piezas. En café claro van las cajas y ranuras de profundidad parcial.</p>
+<div class="sheets" id="sheets"></div>
+<div class="card" style="margin-top:16px"><h3>Archivos para el taller</h3><ul class="list">
+<li><a href="ropero_cnc.dxf" download><b>ropero_cnc.dxf</b></a>: todas las hojas en mm. Capas: CORTE_EXT, CALADO_INTERIOR, TEXTO, cajas y ranuras por profundidad (CAJA_9_5MM, CAJA_6MM, CAJA_5_5MM, RANURA_6MM, RANURA_8MM, RANURA_14MM), y trayectorias ya compensadas para fresa de 6 mm (TRAYECTORIA_EXT_FRESA6, TRAYECTORIA_INT_FRESA6). Geometría neta con dog-bones.</li>
+<li><a href="plantillas/plantillas_ropero_cnc.pdf" target="_blank"><b>Plantillas 1:1 (PDF)</b></a>: cuña, mariposa, taravilla, calibrador de espiga y mortaja, jaladera y esquina de ventana.</li></ul></div></section>
+<section class="blk" id="armado"><p class="eyebrow">Armado</p><h2>Paso a paso en 3D</h2>
+<p class="small">Lo nuevo de cada paso se ve resaltado. Marca cada paso al terminarlo: se guarda en este teléfono. Se arma entre dos personas, solo con un mazo de hule para las cuñas.</p>
+<div class="prog" style="margin:14px 0 6px"><i id="bar"></i></div><div class="small" id="progt"></div>
+<div class="asm" style="margin-top:12px"><div class="stage" id="asm3d"><span class="hint">Gira · acerca</span></div>
+<div><div class="stepnav"><button class="btn ghost" id="prev">← Anterior</button><button class="btn" id="next">Siguiente →</button></div><div class="card" id="stepcard"></div><div class="dots" id="dots"></div></div></div></section>
+<section class="blk" id="taller"><p class="eyebrow">Taller</p><h2>Compras aparte del CNC</h2><div class="card" id="buy"></div></section>
+</main>
+<footer><div class="wrap">Strate Studio · <a href="ropero_cnc.dxf" download>DXF</a> · <a href="plantillas/plantillas_ropero_cnc.pdf">Plantillas 1:1</a> · <a href="../ropero/">Ropero con pocket holes</a></div></footer>
+<script src="page.js"></script>
+</body></html>
